@@ -56,14 +56,14 @@ export function calcRevenueRisk(
 ): number {
   // Impact factors by feature category
   const impactFactors: Record<string, number> = {
+    'Heat Dissipation': 1.4,
+    'Lens Glare': 1.3,
+    'Weight & Comfort': 1.2,
+    'Passthrough': 1.5,
+    'Hand Tracking': 1.1,
+    'Spatial Audio': 1.0,
     Battery: 1.4,
     'Customer Support': 1.2,
-    Sound: 1.1,
-    Display: 1.3,
-    Packaging: 0.9,
-    Delivery: 0.8,
-    Value: 1.1,
-    Taste: 1.0,
     default: 1.0,
   };
   const factor = feature ? (impactFactors[feature] ?? impactFactors.default) : impactFactors.default;
@@ -75,7 +75,7 @@ export function calcRevenueRisk(
  */
 export function formatRupees(amount: number): string {
   if (amount >= 10_000_000) return `₹${(amount / 10_000_000).toFixed(1)} Cr`;
-  if (amount >= 100_000) return `₹${(amount / 100_000).toFixed(1)} Lakh`;
+  if (amount >= 100_000) return `₹${(amount / 100_000).toFixed(1)} L`;
   if (amount >= 1_000) return `₹${(amount / 1_000).toFixed(0)}K`;
   return `₹${amount}`;
 }

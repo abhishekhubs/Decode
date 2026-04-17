@@ -1,9 +1,9 @@
 // VoiceMap — Groq-powered Translation Store
 import { BASE_STRINGS, TStrings } from '@/constants/i18n';
 import { translateStoreData } from '@/utils/translator';
-import { create } from 'zustand';
-import { persist, createJSONStorage } from 'zustand/middleware';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { create } from 'zustand';
+import { createJSONStorage, persist } from 'zustand/middleware';
 
 // Key is read lazily inside the action so hot-reload / env changes are picked up
 const getGroqKey = () => process.env.EXPO_PUBLIC_GROQ_API_KEY ?? '';
@@ -147,23 +147,31 @@ export const useTranslationStore = create<TranslationStore>()(
           return;
         }
 
-        // ── Serve from persistent cache if available ──────────────────
-        if (get().cache[lang]) {
+        // ── Serve from persistent cache if available and fully valid ──
+        const cachedStrings = get().cache[lang];
+        if (cachedStrings && Object.keys(cachedStrings).length === Object.keys(BASE_STRINGS).length) {
           console.log(`[Translation] ✅ ${lang} served from persistent cache`);
           set({
-            language: lang, strings: get().cache[lang],
+            language: lang, strings: { ...(BASE_STRINGS as TStrings), ...cachedStrings },
             isTranslating: false, error: null
           });
           translateStoreData(lang);
           return;
         }
 
+        console.log(`[Translation] Cache miss or outdated for ${lang}. Fetching fresh...`);
+
         // ── Start fresh API call ──────────────────────────────────────
         const controller = new AbortController();
         currentController = controller;
         const langName = LANG_NAMES[lang] ?? lang;
 
-        set({ isTranslating: true, language: lang, error: null });
+        set({ 
+          isTranslating: true, 
+          language: lang, 
+          error: null,
+          strings: { ...(BASE_STRINGS as TStrings), ...(get().cache[lang] || {}) }
+        });
 
         try {
           const numberedList = VALUES.map((v, i) => `${i + 1}. ${v}`).join('\n');
@@ -199,9 +207,9 @@ export const useTranslationStore = create<TranslationStore>()(
 
           // Save to persistent cache so repeat switches are instant across reloads
           currentController = null;
-          set((state) => ({ 
-            strings: merged, 
-            isTranslating: false, 
+          set((state) => ({
+            strings: merged,
+            isTranslating: false,
             error: null,
             cache: { ...state.cache, [lang]: merged }
           }));

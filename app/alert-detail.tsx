@@ -1,15 +1,21 @@
 // VoiceMap — Alert Detail Screen (modal)
-import React, { useState } from 'react';
-import {
-  View, Text, StyleSheet, ScrollView, TouchableOpacity,
-  ActivityIndicator, Alert as RNAlert, Platform,
-} from 'react-native';
-import { useLocalSearchParams, useRouter } from 'expo-router';
-import { useAlertStore } from '@/store/useAlertStore';
 import { Palette, Radii, Spacing } from '@/constants/theme';
+import { useTranslation } from '@/hooks/useTranslation';
+import { useAlertStore } from '@/store/useAlertStore';
 import { formatRupees } from '@/utils/scoring';
 import { generateAlertWhatsAppMessage, sendWhatsAppAlert } from '@/utils/twilioClient';
-import { useTranslation } from '@/hooks/useTranslation';
+import { useLocalSearchParams, useRouter } from 'expo-router';
+import React, { useState } from 'react';
+import {
+  ActivityIndicator,
+  Platform,
+  Alert as RNAlert,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 
 export default function AlertDetailScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
@@ -31,8 +37,8 @@ export default function AlertDetailScreen() {
 
   const severityConfig = {
     critical: { color: Palette.danger, bg: Palette.dangerDim, icon: '🔴' },
-    medium:   { color: Palette.warning, bg: Palette.warningDim, icon: '🟡' },
-    low:      { color: Palette.success, bg: Palette.successDim, icon: '🟢' },
+    medium: { color: Palette.warning, bg: Palette.warningDim, icon: '🟡' },
+    low: { color: Palette.success, bg: Palette.successDim, icon: '🟢' },
   }[alert.severity];
 
   const handleWhatsApp = async () => {
@@ -82,12 +88,12 @@ export default function AlertDetailScreen() {
         `Trend +${alert.trendPercent}%. Take action now.`;
 
       const accountSid = process.env.EXPO_PUBLIC_TWILIO_ACCOUNT_SID ?? '';
-      const authToken  = process.env.EXPO_PUBLIC_TWILIO_AUTH_TOKEN ?? '';
+      const authToken = process.env.EXPO_PUBLIC_TWILIO_AUTH_TOKEN ?? '';
       const url = `https://api.twilio.com/2010-04-01/Accounts/${accountSid}/Messages.json`;
 
       const params = new URLSearchParams();
-      params.append('To',   '+917892208908');
-      params.append('From', '+15078794866');
+      params.append('To', '+917892208908');
+      params.append('From', '+12182504306');
       params.append('Body', smsBody);
 
       const res = await fetch(url, {

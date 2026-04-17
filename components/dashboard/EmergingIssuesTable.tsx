@@ -59,12 +59,14 @@ export function EmergingIssuesTable({ alerts }: Props) {
 const styles = StyleSheet.create({
   container: {
     marginHorizontal: 16,
-    marginBottom: 12,
+    marginBottom: 16,
     backgroundColor: Palette.navyCard,
-    borderRadius: Radii.lg,
+    borderRadius: Radii.xl,
     padding: 16,
     borderWidth: 1,
-    borderColor: Palette.navyBorder,
+    borderColor: 'rgba(255,255,255,0.08)',
+    shadowColor: Palette.violet, shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.1, shadowRadius: 10, elevation: 4,
   },
   header: {
     flexDirection: 'row',

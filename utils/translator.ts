@@ -4,6 +4,8 @@
 const MAX_CHUNK_LENGTH = 3500;
 const DELIMITER = '\n_X_\n';
 
+import { Review, Alert, PlaybookAction } from '@/types';
+
 export async function bulkTranslate(texts: string[], targetLang: string): Promise<string[]> {
   if (targetLang === 'en' || texts.length === 0) return texts;
 
@@ -36,7 +38,7 @@ export async function bulkTranslate(texts: string[], targetLang: string): Promis
       // Split back by delimiter
       const splits = translatedStr
         .split(/_X_|_ X _|_X _|_ X_/i)
-        .map((s) => s.trim().replace(/^_+|_+$/g, '').trim());
+        .map((s: string) => s.trim().replace(/^_+|_+$/g, '').trim());
       
       // Ensure we match the exact length of input chunk
       if (splits.length === chunk.length) {
@@ -75,22 +77,22 @@ export async function translateStoreData(targetLang: string) {
   const strings: string[] = [];
   
   // Reviews
-  reviewStore.originalReviews.forEach(r => {
+  reviewStore.originalReviews.forEach((r: Review) => {
     strings.push(r.text);
-    r.features.forEach(f => strings.push(f.name));
-    r.highlights.forEach(h => strings.push(h.word));
+    r.features.forEach((f: any) => strings.push(f.name));
+    r.highlights.forEach((h: any) => strings.push(h.word));
     strings.push(r.productCategory);
     strings.push(r.brandName);
   });
 
   // Alerts
-  alertStore.originalAlerts.forEach(a => {
+  alertStore.originalAlerts.forEach((a: Alert) => {
     strings.push(a.message);
     strings.push(a.feature);
   });
 
   // Playbook
-  playbookStore.originalActions.forEach(p => {
+  playbookStore.originalActions.forEach((p: PlaybookAction) => {
     strings.push(p.title);
     strings.push(p.description);
     strings.push(p.feature);
@@ -108,22 +110,22 @@ export async function translateStoreData(targetLang: string) {
   // 2. Re-apply translated strings
   let i = 0;
 
-  const newReviews = reviewStore.originalReviews.map(r => {
+  const newReviews = reviewStore.originalReviews.map((r: Review) => {
     const text = translated[i++];
-    const features = r.features.map(f => ({ ...f, name: translated[i++] }));
-    const highlights = r.highlights.map(h => ({ ...h, word: translated[i++] }));
+    const features = r.features.map((f: any) => ({ ...f, name: translated[i++] }));
+    const highlights = r.highlights.map((h: any) => ({ ...h, word: translated[i++] }));
     const productCategory = translated[i++];
     const brandName = translated[i++];
     return { ...r, text, features, highlights, productCategory, brandName };
   });
 
-  const newAlerts = alertStore.originalAlerts.map(a => {
+  const newAlerts = alertStore.originalAlerts.map((a: Alert) => {
     const message = translated[i++];
     const feature = translated[i++];
     return { ...a, message, feature };
   });
 
-  const newActions = playbookStore.originalActions.map(p => {
+  const newActions = playbookStore.originalActions.map((p: PlaybookAction) => {
     const title = translated[i++];
     const description = translated[i++];
     const feature = translated[i++];

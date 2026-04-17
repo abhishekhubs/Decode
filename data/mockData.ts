@@ -6923,10 +6923,10 @@ export const MOCK_TREND: TrendPoint[] = [
 ];
 
 export const MOCK_FEATURE_SCORES = [
-  { feature:'Heating',       positive:9,  negative:91 },
-  { feature:'Build Quality', positive:28, negative:72 },
-  { feature:'Battery',       positive:35, negative:65 },
-  { feature:'Value',         positive:45, negative:55 },
-  { feature:'Comfort',       positive:78, negative:22 },
-  { feature:'Sound Quality', positive:90, negative:10 },
+  { feature:'Heat Dissipation',  positive:9,  negative:91 },
+  { feature:'Lens Glare',        positive:28, negative:72 },
+  { feature:'Weight & Comfort',  positive:35, negative:65 },
+  { feature:'Passthrough',       positive:45, negative:55 },
+  { feature:'Hand Tracking',     positive:78, negative:22 },
+  { feature:'Spatial Audio',     positive:90, negative:10 },
 ];

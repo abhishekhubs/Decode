@@ -1,28 +1,33 @@
 // VoiceMap — Settings Tab Screen
 import { Palette, Radii, Spacing } from '@/constants/theme';
+import { useIsTranslating, useTranslation } from '@/hooks/useTranslation';
+import { useAlertStore } from '@/store/useAlertStore';
 import { useAppStore } from '@/store/useAppStore';
-import { useTranslation, useIsTranslating } from '@/hooks/useTranslation';
-import { useTranslationStore } from '@/store/useTranslationStore';
+import { usePlaybookStore } from '@/store/usePlaybookStore';
 import { useProfileStore } from '@/store/useProfileStore';
 import { useReviewStore } from '@/store/useReviewStore';
-import { useAlertStore } from '@/store/useAlertStore';
-import { usePlaybookStore } from '@/store/usePlaybookStore';
+import { useTranslationStore } from '@/store/useTranslationStore';
 import { Language } from '@/types';
-import React, { useState } from 'react';
-import {
-  Alert, ActivityIndicator, Platform, Modal, Image,
-  ScrollView, StyleSheet, Text, TextInput,
-  TouchableOpacity, View, KeyboardAvoidingView, Switch
-} from 'react-native';
+import { Feather } from '@expo/vector-icons';
 import * as ImagePicker from 'expo-image-picker';
+import { LinearGradient } from 'expo-linear-gradient';
 import * as Print from 'expo-print';
 import * as Sharing from 'expo-sharing';
-import { LinearGradient } from 'expo-linear-gradient';
-import { Feather } from '@expo/vector-icons';
+import React, { useState } from 'react';
+import {
+  ActivityIndicator,
+  Alert,
+  Image,
+  KeyboardAvoidingView,
+  Modal,
+  Platform,
+  ScrollView, StyleSheet, Text, TextInput,
+  TouchableOpacity, View
+} from 'react-native';
 
 const LANGUAGES: { code: Language; label: string; flag: string }[] = [
   { code: 'en', label: 'English', flag: '🇬🇧' },
-  { code: 'hi', label: 'Hindi',   flag: '🇮🇳' },
+  { code: 'hi', label: 'Hindi', flag: '🇮🇳' },
   { code: 'kn', label: 'Kannada', flag: '🇮🇳' },
 ];
 
@@ -69,16 +74,18 @@ function Field({ label, value, onChangeText, placeholder, keyboardType, multilin
 
 export default function SettingsScreen() {
   const { config, updateConfig } = useAppStore();
-  const t             = useTranslation();
+  const t = useTranslation();
   const isTranslating = useIsTranslating();
-  const setLanguage   = useTranslationStore((s) => s.setLanguage);
-  const currentLang   = useTranslationStore((s) => s.language);
+  const setLanguage = useTranslationStore((s) => s.setLanguage);
+  const currentLang = useTranslationStore((s) => s.language);
   const { profile, updateProfile } = useProfileStore();
-  const { reviews }   = useReviewStore();
-  const { alerts }    = useAlertStore();
-  const { actions }   = usePlaybookStore();
+  const { reviews } = useReviewStore();
+  const { alerts } = useAlertStore();
+  const { actions } = usePlaybookStore();
 
   const [editOpen, setEditOpen] = useState(false);
+  const [thresholdOpen, setThresholdOpen] = useState(false);
+  const [draftThresholds, setDraftThresholds] = useState({ ...config.thresholds });
   const [draft, setDraft] = useState({ ...profile });
 
   const initials = profile.name
@@ -96,6 +103,20 @@ export default function SettingsScreen() {
   const openEdit = () => {
     setDraft({ ...profile });
     setEditOpen(true);
+  };
+
+  const openThresholdModal = () => {
+    setDraftThresholds({ ...config.thresholds });
+    setThresholdOpen(true);
+  };
+
+  const handleThresholdSubmit = async () => {
+    updateConfig({ thresholds: draftThresholds });
+    setThresholdOpen(false);
+
+    // Check existing alerts against new thresholds and trigger Twilio if needed
+    const { checkThresholdsAndNotify } = useAlertStore.getState();
+    await checkThresholdsAndNotify(draftThresholds);
   };
 
   const saveEdit = () => {
@@ -144,25 +165,25 @@ export default function SettingsScreen() {
             <h2>Active Alerts (${alerts?.length || 0})</h2>
             ${(alerts || []).map(a => `
               <div class="card">
-                <span class="badge" style="background: ${a.risk === 'High' ? '#EF4444' : a.risk === 'Medium' ? '#F59E0B' : '#10B981'}">${a.type}</span>
-                <p class="title">${a.title}</p>
-                <p class="meta">Risk: <strong>${a.risk}</strong> &bull; Status: ${a.status}</p>
+                <span class="badge" style="background: ${a.severity === 'critical' ? '#EF4444' : a.severity === 'medium' ? '#F59E0B' : '#10B981'}">${a.feature}</span>
+                <p class="title">${a.message}</p>
+                <p class="meta">Severity: <strong>${a.severity}</strong> &bull; Status: ${a.isRead ? 'Read' : 'Unread'}</p>
               </div>
             `).join('')}
 
             <h2>Customer Reviews (${reviews?.length || 0})</h2>
             ${(reviews || []).map(r => `
               <div class="card">
-                <p class="title">${r.author} <span class="star">${'★'.repeat(r.rating)}${'☆'.repeat(5 - r.rating)}</span></p>
+                <p class="title">${r.author || 'Anonymous'} <span class="star">${'★'.repeat(r.rating)}${'☆'.repeat(5 - r.rating)}</span></p>
                 <p class="desc">"${r.text}"</p>
-                <p class="meta">Sentiment: <strong>${r.sentiment}</strong> &bull; Date: ${r.date}</p>
+                <p class="meta">Sentiment: <strong>${r.sentiment}</strong> &bull; Date: ${new Date(r.createdAt).toLocaleDateString()}</p>
               </div>
             `).join('')}
 
             <h2>Playbook Action Items (${actions?.length || 0})</h2>
             ${(actions || []).map(t => `
               <div class="card">
-                <span class="badge" style="background: ${t.status === 'Completed' ? '#10B981' : '#7C3AED'}">${t.status}</span>
+                <span class="badge" style="background: ${t.status === 'done' ? '#10B981' : '#7C3AED'}">${t.status}</span>
                 <p class="title">${t.title}</p>
                 <p class="desc">${t.description}</p>
               </div>
@@ -299,6 +320,14 @@ export default function SettingsScreen() {
               </View>
             }
           />
+          <TouchableOpacity activeOpacity={0.7} onPress={openThresholdModal}>
+            <SettingRow
+              icon="target"
+              label={t.settings_thresholds_title}
+              sub={t.settings_thresholds_desc}
+              right={<Feather name="chevron-right" size={20} color={Palette.grey500} />}
+            />
+          </TouchableOpacity>
         </View>
 
         {/* ── Export ── */}
@@ -406,6 +435,69 @@ export default function SettingsScreen() {
           </View>
         </KeyboardAvoidingView>
       </Modal>
+
+      {/* ── Threshold Modal ── */}
+      <Modal visible={thresholdOpen} animationType="slide" transparent>
+        <KeyboardAvoidingView
+          style={styles.modalOverlay}
+          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        >
+          <View style={styles.modalSheet}>
+            <View style={styles.modalHandle} />
+            <View style={styles.modalHeader}>
+              <Text style={styles.modalTitle}>{t.settings_thresh_modal_title}</Text>
+              <TouchableOpacity onPress={() => setThresholdOpen(false)} style={styles.closeBtn}>
+                <Feather name="x" size={20} color={Palette.grey400} />
+              </TouchableOpacity>
+            </View>
+            <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{ gap: 16, paddingBottom: 24 }}>
+              <Text style={{ color: Palette.grey400, fontSize: 13, paddingHorizontal: 20 }}>
+                {t.settings_thresh_modal_desc}
+              </Text>
+
+              <View style={{ paddingHorizontal: 20, gap: 12 }}>
+                {[
+                  { key: 'product', label: t.settings_thresh_product, icon: 'alert-circle', max: 100 },
+                  { key: 'marketing', label: t.settings_thresh_marketing, icon: 'alert-triangle', max: 100 },
+                  { key: 'support', label: t.settings_thresh_support, icon: 'info', max: 100 }
+                ].map((item) => (
+                  <View key={item.key} style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', backgroundColor: Palette.navySurface, padding: 16, borderRadius: 12 }}>
+                    <View style={{ flexDirection: 'row', alignItems: 'center', gap: 12 }}>
+                      <Feather name={item.icon as any} size={20} color={Palette.violetLight} />
+                      <Text style={{ color: '#fff', fontSize: 15, fontWeight: '600' }}>{item.label}</Text>
+                    </View>
+                    <View style={{ flexDirection: 'row', alignItems: 'center', backgroundColor: Palette.navySurface, borderRadius: 8 }}>
+                      <TouchableOpacity
+                        onPress={() => setDraftThresholds({ ...draftThresholds, [item.key]: Math.max(0, draftThresholds[item.key as keyof typeof draftThresholds] - 5) })}
+                        style={{ padding: 12 }}
+                      >
+                        <Feather name="minus" size={16} color={Palette.grey300} />
+                      </TouchableOpacity>
+                      <Text style={{ color: '#fff', fontWeight: '700', width: 36, textAlign: 'center', fontSize: 15 }}>
+                        {draftThresholds[item.key as keyof typeof draftThresholds]}
+                      </Text>
+                      <TouchableOpacity
+                        onPress={() => setDraftThresholds({ ...draftThresholds, [item.key]: Math.min(item.max, draftThresholds[item.key as keyof typeof draftThresholds] + 5) })}
+                        style={{ padding: 12 }}
+                      >
+                        <Feather name="plus" size={16} color={Palette.grey300} />
+                      </TouchableOpacity>
+                    </View>
+                  </View>
+                ))}
+              </View>
+
+              <View style={{ paddingHorizontal: 20, marginTop: 8 }}>
+                <TouchableOpacity style={[styles.saveBtn, { backgroundColor: Palette.violetLight }]} onPress={handleThresholdSubmit}>
+                  <Text style={[styles.saveBtnText, { color: Palette.deepNavy }]}>{t.settings_thresh_submit}</Text>
+                </TouchableOpacity>
+              </View>
+
+            </ScrollView>
+          </View>
+        </KeyboardAvoidingView>
+      </Modal>
+
     </View>
   );
 }
@@ -424,7 +516,7 @@ const styles = StyleSheet.create({
   // ── Profile Card ──
   profileCard: {
     flexDirection: 'row', alignItems: 'center', gap: 16,
-    borderRadius: Radii.lg, padding: 20, 
+    borderRadius: Radii.lg, padding: 20,
     borderWidth: 1, borderColor: Palette.violetDim,
     marginTop: 8,
     shadowColor: Palette.violet, shadowOffset: { width: 0, height: 8 },
@@ -461,7 +553,7 @@ const styles = StyleSheet.create({
   },
   section: {
     backgroundColor: Palette.navyCard, borderRadius: Radii.lg,
-    paddingHorizontal: 16, paddingVertical: 4, 
+    paddingHorizontal: 16, paddingVertical: 4,
     borderWidth: 1, borderColor: Palette.navyBorder,
     shadowColor: '#000', shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.2, shadowRadius: 8, elevation: 3,
@@ -487,7 +579,7 @@ const styles = StyleSheet.create({
     shadowColor: Palette.success, shadowOffset: { width: 0, height: 0 },
     shadowOpacity: 0.8, shadowRadius: 6, elevation: 4,
   },
-  
+
   // ── Language ──
   langRow: { flexDirection: 'row', gap: 10, paddingVertical: 10 },
   langChip: {
@@ -541,7 +633,7 @@ const styles = StyleSheet.create({
     borderRadius: 20, borderWidth: 2, borderColor: Palette.navyCard,
   },
   photoEditBtnText: { color: Palette.deepNavy, fontSize: 13, fontWeight: '800' },
-  
+
   // ── Inputs ──
   fieldWrap: { marginBottom: 16 },
   fieldLabel: { color: Palette.grey400, fontSize: 12, fontWeight: '700', marginBottom: 8, letterSpacing: 0.5 },
@@ -563,17 +655,17 @@ const styles = StyleSheet.create({
     borderRadius: Radii.md, paddingVertical: 16, alignItems: 'center', marginTop: 12,
   },
   saveBtnText: { color: '#fff', fontSize: 16, fontWeight: '800', letterSpacing: 0.5 },
-  
+
   // ── Footer ──
-  footer: { 
-    alignSelf: 'center', 
-    marginTop: 32, 
+  footer: {
+    alignSelf: 'center',
+    marginTop: 32,
     marginBottom: 20,
   },
-  footerText: { 
-    color: Palette.violetLight, 
-    fontSize: 16, 
-    fontWeight: '900', 
+  footerText: {
+    color: Palette.violetLight,
+    fontSize: 16,
+    fontWeight: '900',
     letterSpacing: 1,
     textTransform: 'uppercase',
   },

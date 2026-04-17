@@ -1,15 +1,16 @@
 // VoiceMap — Twilio WhatsApp Client + Groq Alert Message Generator
 // Sends WhatsApp alerts via Twilio REST API (no SDK, pure fetch)
 
+// ── Twilio credentials (new account — confirmed working) ──────────────────────
 const TWILIO_ACCOUNT_SID = process.env.EXPO_PUBLIC_TWILIO_ACCOUNT_SID ?? '';
 const TWILIO_AUTH_TOKEN  = process.env.EXPO_PUBLIC_TWILIO_AUTH_TOKEN ?? '';
-const TWILIO_FROM        = 'whatsapp:+14155238886'; // WhatsApp sandbox number
-const TWILIO_SMS_FROM    = '+15078794866';           // Real Twilio phone number for SMS
-const TWILIO_TO          = 'whatsapp:+917892208908'; // brand manager WhatsApp
-const TWILIO_SMS_TO      = '+917892208908';           // brand manager SMS number
+const TWILIO_FROM     = 'whatsapp:+14155238886'; // Twilio WhatsApp sandbox
+const TWILIO_SMS_FROM = '+12182504306';           // Confirmed working SMS number
+const TWILIO_TO       = 'whatsapp:+917892208908'; // brand manager WhatsApp
+const TWILIO_SMS_TO   = '+917892208908';           // brand manager SMS number
 
 const GROQ_API_KEY = process.env.EXPO_PUBLIC_GROQ_API_KEY ?? '';
-const GROQ_MODEL   = 'llama-3.1-8b-instant';
+const GROQ_MODEL = 'llama-3.1-8b-instant';
 
 // ─── Category-aware Groq message generator ────────────────────────────────────
 
@@ -128,7 +129,7 @@ export async function sendWhatsAppAlert(messageBody: string): Promise<WhatsAppSe
 
   // Encode body as application/x-www-form-urlencoded (Twilio requirement)
   const params = new URLSearchParams();
-  params.append('To',   TWILIO_TO);
+  params.append('To', TWILIO_TO);
   params.append('From', TWILIO_FROM);
   params.append('Body', messageBody);
 
@@ -169,7 +170,7 @@ export async function sendSmsAlert(messageBody: string): Promise<WhatsAppSendRes
   const url = `https://api.twilio.com/2010-04-01/Accounts/${TWILIO_ACCOUNT_SID}/Messages.json`;
 
   const params = new URLSearchParams();
-  params.append('To',   TWILIO_SMS_TO);
+  params.append('To', TWILIO_SMS_TO);
   params.append('From', TWILIO_SMS_FROM);
   params.append('Body', messageBody);
 
@@ -195,9 +196,9 @@ export async function sendSmsAlert(messageBody: string): Promise<WhatsAppSendRes
     }
 
     // Build a detailed error string from Twilio response
-    const twilioCode  = data?.code    ? `Code ${data.code}: ` : '';
-    const twilioMsg   = data?.message ?? `HTTP ${res.status}`;
-    const moreInfo    = data?.more_info ? `\nDetails: ${data.more_info}` : '';
+    const twilioCode = data?.code ? `Code ${data.code}: ` : '';
+    const twilioMsg = data?.message ?? `HTTP ${res.status}`;
+    const moreInfo = data?.more_info ? `\nDetails: ${data.more_info}` : '';
     return {
       success: false,
       error: `${twilioCode}${twilioMsg}${moreInfo}`,

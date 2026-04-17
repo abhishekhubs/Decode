@@ -69,15 +69,11 @@ export default function AlertsScreen() {
           <Text style={styles.summaryNumber}>{low.length}</Text>
           <Text style={[styles.summaryLabel, { color: Palette.successLight }]}>{t.alerts_low}</Text>
         </View>
-        <View style={[styles.summaryCard, { borderColor: Palette.violet }]}>
-          <Text style={[styles.summaryNumber, { color: Palette.violetLight }]}>{unread}</Text>
-          <Text style={[styles.summaryLabel, { color: Palette.violetLight }]}>{t.alerts_unread}</Text>
-        </View>
       </View>
 
       {/* WhatsApp mock banner */}
       <View style={styles.whatsappBanner}>
-        <Text style={styles.whatsappText}>{t.alerts_whatsapp}</Text>
+        <Text style={styles.whatsappText}>WhatsApp Alert Enabled · SMS Alerts Enabled</Text>
         <View style={styles.whatsappDot} />
       </View>
 
@@ -138,10 +134,10 @@ const styles = StyleSheet.create({
   whatsappBanner: {
     marginHorizontal: Spacing.md, marginBottom: 14,
     backgroundColor: '#064E3B', borderRadius: Radii.md, padding: 10,
-    flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between',
+    flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 8,
     borderWidth: 1, borderColor: Palette.success,
   },
-  whatsappText: { color: Palette.successLight, fontSize: 12, fontWeight: '600' },
+  whatsappText: { color: Palette.successLight, fontSize: 12, fontWeight: '600', textAlign: 'center' },
   whatsappDot: {
     width: 8, height: 8, borderRadius: 4, backgroundColor: Palette.success,
   },

@@ -79,7 +79,12 @@ export interface AppConfig {
   brandName: string;
   productCategory: string;
   language: Language;
-  alertThreshold: number; // DangerScore trigger
+  thresholds: {
+    product: number;
+    marketing: number;
+    support: number;
+    trend: number;
+  };
   avgOrderValue: number; // ₹
   monthlyOrders: number;
   darkMode: boolean;

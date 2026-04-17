@@ -9,11 +9,16 @@ interface AppStore {
 
 export const useAppStore = create<AppStore>((set) => ({
   config: {
-    brandName: 'NovaTech',
-    productCategory: 'Smartphone',
+    brandName: 'Aura Vision Pro',
+    productCategory: 'Spatial Computer',
     language: 'en',
-    alertThreshold: 70,
-    avgOrderValue: 35000,
+    thresholds: {
+      product: 70,
+      marketing: 70,
+      support: 70,
+      trend: 20,
+    },
+    avgOrderValue: 350000,
     monthlyOrders: 1200,
     darkMode: true,
   },

@@ -1,20 +1,20 @@
 // VoiceMap — 5-Tab Navigation Layout (emoji icons, web-safe)
+import FloatingChatbot from '@/components/common/FloatingChatbot';
+import { Palette } from '@/constants/theme';
+import { useTranslation } from '@/hooks/useTranslation';
+import { useAlertStore } from '@/store/useAlertStore';
 import { Tabs } from 'expo-router';
 import React from 'react';
-import { View, Text, StyleSheet, Platform } from 'react-native';
-import { Palette } from '@/constants/theme';
-import { useAlertStore } from '@/store/useAlertStore';
-import FloatingChatbot from '@/components/common/FloatingChatbot';
-import { useTranslation } from '@/hooks/useTranslation';
+import { Platform, StyleSheet, Text, View } from 'react-native';
 
 // Web-safe tab icons using emoji — MaterialIcons font fails on Expo web
 type TabKey = 'dashboard' | 'reviews' | 'alerts' | 'playbook' | 'settings';
 const TAB_ICONS: Record<TabKey, { active: string; inactive: string }> = {
   dashboard: { active: '⬡', inactive: '⬡' },
-  reviews:   { active: '◈', inactive: '◈' },
-  alerts:    { active: '◉', inactive: '◉' },
-  playbook:  { active: '◧', inactive: '◧' },
-  settings:  { active: '◍', inactive: '◍' },
+  reviews: { active: '◈', inactive: '◈' },
+  alerts: { active: '◉', inactive: '◉' },
+  playbook: { active: '◧', inactive: '◧' },
+  settings: { active: '◍', inactive: '◍' },
 };
 
 // Clean icon using emoji
@@ -45,75 +45,75 @@ export default function TabLayout() {
 
   return (
     <View style={{ flex: 1 }}>
-    <Tabs
-      screenOptions={{
-        headerShown: false,
-        tabBarStyle: styles.tabBar,
-        tabBarActiveTintColor: Palette.violetLight,
-        tabBarInactiveTintColor: Palette.grey500,
-        tabBarLabelStyle: styles.tabLabel,
-        tabBarItemStyle: styles.tabItem,
-      }}
-    >
-      <Tabs.Screen
-        name="index"
-        options={{
-          title: t.tab_dashboard,
-          tabBarIcon: ({ color, focused }) => (
-            <Text style={[styles.tabIcon, { color }]}>
-              {focused ? '▣' : '▢'}
-            </Text>
-          ),
+      <Tabs
+        screenOptions={{
+          headerShown: false,
+          tabBarStyle: styles.tabBar,
+          tabBarActiveTintColor: Palette.violetLight,
+          tabBarInactiveTintColor: Palette.grey500,
+          tabBarLabelStyle: styles.tabLabel,
+          tabBarItemStyle: styles.tabItem,
         }}
-      />
-      <Tabs.Screen
-        name="reviews"
-        options={{
-          title: t.tab_reviews,
-          tabBarIcon: ({ color, focused }) => (
-            <Text style={[styles.tabIcon, { color }]}>
-              {focused ? '✦' : '✧'}
-            </Text>
-          ),
-        }}
-      />
-      <Tabs.Screen
-        name="alerts"
-        options={{
-          title: t.tab_alerts,
-          tabBarIcon: ({ color }) => (
-            <AlertIcon color={color} count={unreadCount} />
-          ),
-        }}
-      />
-      <Tabs.Screen
-        name="playbook"
-        options={{
-          title: t.tab_playbook,
-          tabBarIcon: ({ color, focused }) => (
-            <Text style={[styles.tabIcon, { color }]}>
-              {focused ? '⚙' : '⚙'}
-            </Text>
-          ),
-        }}
-      />
-      <Tabs.Screen
-        name="settings"
-        options={{
-          title: t.tab_settings,
-          tabBarIcon: ({ color, focused }) => (
-            <Text style={[styles.tabIcon, { color }]}>
-              {focused ? '◉' : '○'}
-            </Text>
-          ),
-        }}
-      />
-      {/* Hidden legacy screen */}
-      <Tabs.Screen name="explore" options={{ href: null }} />
-    </Tabs>
+      >
+        <Tabs.Screen
+          name="index"
+          options={{
+            title: t.tab_dashboard,
+            tabBarIcon: ({ color, focused }) => (
+              <Text style={[styles.tabIcon, { color }]}>
+                {focused ? '▣' : '▢'}
+              </Text>
+            ),
+          }}
+        />
+        <Tabs.Screen
+          name="reviews"
+          options={{
+            title: t.tab_reviews,
+            tabBarIcon: ({ color, focused }) => (
+              <Text style={[styles.tabIcon, { color }]}>
+                {focused ? '✦' : '✧'}
+              </Text>
+            ),
+          }}
+        />
+        <Tabs.Screen
+          name="alerts"
+          options={{
+            title: t.tab_alerts,
+            tabBarIcon: ({ color }) => (
+              <AlertIcon color={color} count={unreadCount} />
+            ),
+          }}
+        />
+        <Tabs.Screen
+          name="playbook"
+          options={{
+            title: t.tab_playbook,
+            tabBarIcon: ({ color, focused }) => (
+              <Text style={[styles.tabIcon, { color }]}>
+                {focused ? '⚙' : '⚙'}
+              </Text>
+            ),
+          }}
+        />
+        <Tabs.Screen
+          name="settings"
+          options={{
+            title: t.tab_settings,
+            tabBarIcon: ({ color, focused }) => (
+              <Text style={[styles.tabIcon, { color }]}>
+                {focused ? '◉' : '○'}
+              </Text>
+            ),
+          }}
+        />
+        {/* Hidden legacy screen */}
+        <Tabs.Screen name="explore" options={{ href: null }} />
+      </Tabs>
 
-    {/* ── Global Floating AI Chatbot — visible on all tabs ── */}
-    <FloatingChatbot />
+      {/* ── Global Floating AI Chatbot — visible on all tabs ── */}
+      <FloatingChatbot />
     </View>
   );
 }

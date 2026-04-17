@@ -48,36 +48,76 @@ export function TrendLineChart({ data }: Props) {
           datasets: [
             {
               data: chartValues,
-              color: (opacity) => `rgba(239, 68, 68, ${opacity})`,
+              color: (opacity) => `rgba(56, 189, 248, ${opacity})`, // Light blue line
               strokeWidth: 3,
             },
           ],
         }}
         width={SCREEN_WIDTH - 32}
-        height={160}
+        height={180}
         chartConfig={{
           backgroundGradientFrom: Palette.navyCard,
-          backgroundGradientTo: Palette.navySurface,
+          backgroundGradientTo: Palette.navyCard,
           decimalPlaces: 0,
-          color: (opacity = 1) => `rgba(239, 68, 68, ${opacity})`,
+          color: (opacity = 1) => `rgba(56, 189, 248, ${opacity})`, // Light blue fill
           labelColor: () => Palette.grey400,
           style: { borderRadius: Radii.md },
           propsForDots: {
             r: '5',
-            strokeWidth: '2',
-            stroke: Palette.danger,
-            fill: Palette.navyCard,
+            strokeWidth: '3',
+            stroke: '#38bdf8',
+            fill: '#ffffff',
           },
           propsForBackgroundLines: {
-            stroke: Palette.navyBorder,
+            stroke: 'rgba(255,255,255,0.05)',
             strokeDasharray: '4',
           },
         }}
-        bezier
+        // Removed bezier for straight lines
         style={styles.chart}
         withInnerLines
         withOuterLines={false}
         fromZero
+        renderDotContent={({ x, y, index, indexData }) => {
+          if (index !== chartValues.length - 1) return null;
+          return (
+            <View
+              key={index}
+              style={{
+                position: 'absolute',
+                top: y - 36,
+                left: x - 20,
+                backgroundColor: '#38bdf8',
+                borderRadius: 4,
+                paddingHorizontal: 8,
+                paddingVertical: 4,
+                alignItems: 'center',
+                shadowColor: '#38bdf8',
+                shadowOffset: { width: 0, height: 4 },
+                shadowOpacity: 0.4,
+                shadowRadius: 6,
+                elevation: 4,
+              }}
+            >
+              <Text style={{ color: '#ffffff', fontSize: 11, fontWeight: '900' }}>
+                {indexData}
+              </Text>
+              {/* Tooltip triangle */}
+              <View
+                style={{
+                  position: 'absolute',
+                  bottom: -3,
+                  left: '50%',
+                  marginLeft: 5, // Center adjustment
+                  width: 8,
+                  height: 8,
+                  backgroundColor: '#38bdf8',
+                  transform: [{ rotate: '45deg' }],
+                }}
+              />
+            </View>
+          );
+        }}
       />
     </View>
   );
@@ -86,12 +126,14 @@ export function TrendLineChart({ data }: Props) {
 const styles = StyleSheet.create({
   container: {
     marginHorizontal: 16,
-    marginBottom: 12,
+    marginBottom: 16,
     backgroundColor: Palette.navyCard,
-    borderRadius: Radii.lg,
+    borderRadius: Radii.xl,
     padding: 16,
     borderWidth: 1,
-    borderColor: Palette.navyBorder,
+    borderColor: 'rgba(255,255,255,0.08)',
+    shadowColor: Palette.violet, shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.1, shadowRadius: 10, elevation: 4,
   },
   header: {
     flexDirection: 'row',

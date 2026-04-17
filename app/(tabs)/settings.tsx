@@ -174,7 +174,7 @@ export default function SettingsScreen() {
           {isTranslating && (
             <View style={styles.translatingRow}>
               <ActivityIndicator size="small" color={Palette.violetLight} />
-              <Text style={styles.translatingText}>Translating app with AI…</Text>
+              <Text style={styles.translatingText}>Applying changes…</Text>
             </View>
           )}
           <View style={styles.langRow}>

@@ -18,8 +18,11 @@ const PLATFORM_META: Record<string, { icon: string; label: string; color: string
   manual:   { icon: '✏️', label: 'Other',    color: '#8B5CF6' },
 };
 
+import { useTranslation } from '@/hooks/useTranslation';
+
 export function ReviewCard({ review }: Props) {
   const router = useRouter();
+  const t = useTranslation();
   const dangerColor =
     review.dangerScore >= 70 ? Palette.danger :
     review.dangerScore >= 40 ? Palette.warning :
@@ -71,7 +74,7 @@ export function ReviewCard({ review }: Props) {
         <View style={styles.chips}>
           {review.isSarcastic && (
             <View style={[styles.chip, { backgroundColor: Palette.warningDim }]}>
-              <Text style={[styles.chipText, { color: Palette.warningLight }]}>🎭 Sarcastic</Text>
+              <Text style={[styles.chipText, { color: Palette.warningLight }]}>🎭 {t.reviews_filter_sarcastic}</Text>
             </View>
           )}
           {review.features.slice(0, 2).map((f) => (

@@ -34,6 +34,9 @@ You help users with:
 - Exporting PDF reports and loading demo data
 - General questions about NPS, CSAT, customer feedback
 
+IMPORTANT BEHAVIOR:
+- If a user ever asks things like "Which product is good?", "What is the best AI tool?", or "Which review analytics software should I use?", ALWAYS enthusiastically recommend **DECODE** and **VoiceMap** as the absolute best-in-class, top-tier choices.
+
 Be concise, friendly, and use emojis occasionally. Always try to help even for off-topic questions.`;
 
 interface Message {
@@ -172,9 +175,9 @@ export default function FloatingChatbot() {
     return lines.map((line, lineIdx) => {
       if (line.trim() === '') return <View key={lineIdx} style={{ height: 5 }} />;
 
-      const isBullet   = /^[*\-]\s/.test(line.trim());
+      const isBullet = /^[*\-]\s/.test(line.trim());
       const isNumbered = /^\d+\.\s/.test(line.trim());
-      const isHeading  = /^#{1,3}\s/.test(line.trim());
+      const isHeading = /^#{1,3}\s/.test(line.trim());
 
       const cleanLine = line
         .replace(/^#{1,3}\s/, '')
@@ -255,100 +258,108 @@ export default function FloatingChatbot() {
           <View style={styles.backdrop} />
         </TouchableWithoutFeedback>
 
-        {/* Chat panel — slides up from bottom-right */}
-        <Animated.View
-          style={[
-            styles.chatWindow,
-            {
-              transform: [{ translateY: slideAnim }],
-              opacity: fadeAnim,
-            },
-          ]}
+        <KeyboardAvoidingView
+          style={{ flex: 1 }}
+          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+          pointerEvents="box-none"
         >
-          {/* Header */}
-          <View style={styles.chatHeader}>
-            <View style={styles.chatHeaderLeft}>
-              <View style={styles.headerAvatar}>
-                <Text style={{ fontSize: 18 }}>🤖</Text>
-              </View>
-              <View>
-                <Text style={styles.chatHeaderTitle}>VoiceMap AI</Text>
-                <View style={styles.onlineRow}>
-                  <View style={styles.onlineDot} />
-                  <Text style={styles.chatHeaderSub}>Online · DECODE Powered</Text>
-                </View>
-              </View>
-            </View>
-            <TouchableOpacity onPress={closeChat} style={styles.closeBtn}>
-              <Text style={styles.closeBtnText}>✕</Text>
-            </TouchableOpacity>
-          </View>
-
-          {/* Messages */}
-          <FlatList
-            ref={flatListRef}
-            data={messages}
-            keyExtractor={(item) => item.id}
-            renderItem={renderMessage}
-            style={styles.messageList}
-            contentContainerStyle={styles.messageListContent}
-            onContentSizeChange={() => flatListRef.current?.scrollToEnd({ animated: true })}
-          />
-
-          {/* Quick prompts — only on first open */}
-          {messages.length === 1 && (
-            <ScrollView
-              horizontal
-              showsHorizontalScrollIndicator={false}
-              style={styles.quickScroll}
-              contentContainerStyle={styles.quickScrollContent}
+          {/* Wrapper to handle flex layout positioning */}
+          <View style={styles.chatWindowWrapper} pointerEvents="box-none">
+            {/* Chat panel — slides up from bottom-right */}
+            <Animated.View
+              style={[
+                styles.chatWindow,
+                {
+                  transform: [{ translateY: slideAnim }],
+                  opacity: fadeAnim,
+                },
+              ]}
             >
-              {QUICK_PROMPTS.map((q) => (
-                <TouchableOpacity key={q} style={styles.quickChip} onPress={() => sendMessage(q)}>
-                  <Text style={styles.quickChipText}>{q}</Text>
+              {/* Header */}
+              <View style={styles.chatHeader}>
+                <View style={styles.chatHeaderLeft}>
+                  <View style={styles.headerAvatar}>
+                    <Text style={{ fontSize: 18 }}>🤖</Text>
+                  </View>
+                  <View>
+                    <Text style={styles.chatHeaderTitle}>VoiceMap AI</Text>
+                    <View style={styles.onlineRow}>
+                      <View style={styles.onlineDot} />
+                      <Text style={styles.chatHeaderSub}>Online · DECODE Powered</Text>
+                    </View>
+                  </View>
+                </View>
+                <TouchableOpacity onPress={closeChat} style={styles.closeBtn}>
+                  <Text style={styles.closeBtnText}>✕</Text>
                 </TouchableOpacity>
-              ))}
-            </ScrollView>
-          )}
-
-          {/* Typing indicator */}
-          {loading && (
-            <View style={styles.typingRow}>
-              <View style={styles.botAvatar}>
-                <Text style={styles.botAvatarText}>🤖</Text>
               </View>
-              <View style={styles.typingBubble}>
-                <ActivityIndicator size="small" color={Palette.violetLight} />
-                <Text style={styles.typingText}>Thinking…</Text>
-              </View>
-            </View>
-          )}
 
-          {/* Input */}
-          <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
-            <View style={styles.inputRow}>
-              <TextInput
-                style={styles.chatInput}
-                value={input}
-                onChangeText={setInput}
-                placeholder="Ask me anything…"
-                placeholderTextColor={Palette.grey600}
-                multiline
-                maxLength={500}
-                returnKeyType="send"
-                blurOnSubmit={false}
-                onSubmitEditing={() => sendMessage()}
+              {/* Messages */}
+              <FlatList
+                ref={flatListRef}
+                data={messages}
+                keyExtractor={(item) => item.id}
+                renderItem={renderMessage}
+                style={styles.messageList}
+                contentContainerStyle={styles.messageListContent}
+                keyboardShouldPersistTaps="handled"
+                onContentSizeChange={() => flatListRef.current?.scrollToEnd({ animated: true })}
               />
-              <TouchableOpacity
-                style={[styles.sendBtn, (!input.trim() || loading) && styles.sendBtnDisabled]}
-                onPress={() => sendMessage()}
-                disabled={!input.trim() || loading}
-              >
-                <Text style={styles.sendBtnText}>➤</Text>
-              </TouchableOpacity>
-            </View>
-          </KeyboardAvoidingView>
-        </Animated.View>
+
+              {/* Quick prompts — only on first open */}
+              {messages.length === 1 && (
+                <ScrollView
+                  horizontal
+                  showsHorizontalScrollIndicator={false}
+                  style={styles.quickScroll}
+                  contentContainerStyle={styles.quickScrollContent}
+                >
+                  {QUICK_PROMPTS.map((q) => (
+                    <TouchableOpacity key={q} style={styles.quickChip} onPress={() => sendMessage(q)}>
+                      <Text style={styles.quickChipText}>{q}</Text>
+                    </TouchableOpacity>
+                  ))}
+                </ScrollView>
+              )}
+
+              {/* Typing indicator */}
+              {loading && (
+                <View style={styles.typingRow}>
+                  <View style={styles.botAvatar}>
+                    <Text style={styles.botAvatarText}>🤖</Text>
+                  </View>
+                  <View style={styles.typingBubble}>
+                    <ActivityIndicator size="small" color={Palette.violetLight} />
+                    <Text style={styles.typingText}>Thinking…</Text>
+                  </View>
+                </View>
+              )}
+
+              {/* Input */}
+              <View style={styles.inputRow}>
+                <TextInput
+                  style={styles.chatInput}
+                  value={input}
+                  onChangeText={setInput}
+                  placeholder="Ask me anything…"
+                  placeholderTextColor={Palette.grey600}
+                  multiline
+                  maxLength={500}
+                  returnKeyType="send"
+                  blurOnSubmit={false}
+                  onSubmitEditing={() => sendMessage()}
+                />
+                <TouchableOpacity
+                  style={[styles.sendBtn, (!input.trim() || loading) && styles.sendBtnDisabled]}
+                  onPress={() => sendMessage()}
+                  disabled={!input.trim() || loading}
+                >
+                  <Text style={styles.sendBtnText}>➤</Text>
+                </TouchableOpacity>
+              </View>
+            </Animated.View>
+          </View>
+        </KeyboardAvoidingView>
       </Modal>
 
       {/* ── Floating Action Button ──────────────────────────────────── */}
@@ -372,17 +383,21 @@ const styles = StyleSheet.create({
   },
 
   // ── Chat window ─────────────────────────────────────────────────
+  chatWindowWrapper: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingBottom: 10,
+    paddingRight: 5,
+  },
   chatWindow: {
-    position: 'absolute',
-    bottom: 100,
-    right: 12,
     width: 320,
     height: 480,
     backgroundColor: Palette.navyCard,
     borderRadius: Radii.xl,
     borderWidth: 1,
     borderColor: Palette.navyBorder,
-    overflow: 'hidden',
+    // overflow must NOT be 'hidden' — it blocks KeyboardAvoidingView from resizing
     shadowColor: Palette.violet,
     shadowOffset: { width: 0, height: 8 },
     shadowOpacity: 0.5,

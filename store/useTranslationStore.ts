@@ -1,5 +1,6 @@
 // VoiceMap — Groq-powered Translation Store
 import { BASE_STRINGS, TStrings } from '@/constants/i18n';
+import { translateStoreData } from '@/utils/translator';
 import { create } from 'zustand';
 
 // Key is read lazily inside the action so hot-reload / env changes are picked up
@@ -10,7 +11,7 @@ const LANG_NAMES: Record<string, string> = {
   kn: 'Kannada',
 };
 
-const KEYS   = Object.keys(BASE_STRINGS) as Array<keyof TStrings>;
+const KEYS = Object.keys(BASE_STRINGS) as Array<keyof TStrings>;
 const VALUES = Object.values(BASE_STRINGS) as string[];
 
 // ── Per-session cache — avoids re-calling Groq for already-translated languages ──
@@ -130,16 +131,21 @@ export const useTranslationStore = create<TranslationStore>((set, get) => ({
 
     // ── Switch back to English — always instant ───────────────────
     if (lang === 'en') {
-      set({ language: 'en', strings: BASE_STRINGS as TStrings,
-            isTranslating: false, error: null });
+      set({
+        language: 'en', strings: BASE_STRINGS as TStrings,
+        isTranslating: false, error: null
+      });
       return;
     }
 
     // ── Serve from cache if available ─────────────────────────────
     if (translationCache.has(lang)) {
       console.log(`[Translation] ✅ ${lang} served from cache`);
-      set({ language: lang, strings: translationCache.get(lang)!,
-            isTranslating: false, error: null });
+      set({
+        language: lang, strings: translationCache.get(lang)!,
+        isTranslating: false, error: null
+      });
+      translateStoreData(lang);
       return;
     }
 
@@ -178,6 +184,9 @@ export const useTranslationStore = create<TranslationStore>((set, get) => ({
       translationCache.set(lang, merged);
       currentController = null;
       set({ strings: merged, isTranslating: false, error: null });
+
+      // Fire off data translation in background
+      translateStoreData(lang);
 
     } catch (e: any) {
       if (e?.name === 'AbortError') {

@@ -1,23 +1,27 @@
 // VoiceMap — Dashboard Screen — Role-Aware (Product / Marketing / Support)
-import React, { useMemo } from 'react';
-import {
-  View, Text, StyleSheet, ScrollView, TouchableOpacity,
-  Platform, RefreshControl,
-} from 'react-native';
-import { useRouter } from 'expo-router';
-import { useReviewStore } from '@/store/useReviewStore';
-import { useAlertStore } from '@/store/useAlertStore';
-import { useAppStore } from '@/store/useAppStore';
-import { useTranslation } from '@/hooks/useTranslation';
 import { DangerScoreGauge } from '@/components/dashboard/DangerScoreGauge';
-import { TrendLineChart } from '@/components/dashboard/TrendLineChart';
+import { EmergingIssuesTable } from '@/components/dashboard/EmergingIssuesTable';
 import { FeatureSentimentBars } from '@/components/dashboard/FeatureSentimentBar';
 import { GeoSentimentMap } from '@/components/dashboard/GeoSentimentMap';
-import { EmergingIssuesTable } from '@/components/dashboard/EmergingIssuesTable';
 import { LiveReviewTicker } from '@/components/dashboard/LiveReviewTicker';
-import { calcDangerScore, calcRevenueRisk, formatRupees } from '@/utils/scoring';
+import { TrendLineChart } from '@/components/dashboard/TrendLineChart';
 import { Palette, Radii, Spacing } from '@/constants/theme';
-import { MOCK_TREND, MOCK_FEATURE_SCORES } from '@/data/mockData';
+import { MOCK_FEATURE_SCORES, MOCK_TREND } from '@/data/mockData';
+import { useTranslation } from '@/hooks/useTranslation';
+import { useAlertStore } from '@/store/useAlertStore';
+import { useAppStore } from '@/store/useAppStore';
+import { useReviewStore } from '@/store/useReviewStore';
+import { calcDangerScore, calcRevenueRisk, formatRupees } from '@/utils/scoring';
+import { useRouter } from 'expo-router';
+import React, { useMemo } from 'react';
+import {
+  Platform, RefreshControl,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 
 const TOP_PADDING = Platform.select({ web: 20, ios: 54, android: 32, default: 32 });
 

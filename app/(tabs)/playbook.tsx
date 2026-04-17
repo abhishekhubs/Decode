@@ -6,7 +6,7 @@ import {
 } from 'react-native';
 import { Palette, Radii, Spacing } from '@/constants/theme';
 import { PlaybookAction, Priority, ActionStatus } from '@/types';
-import { MOCK_PLAYBOOK } from '@/data/mockData';
+import { usePlaybookStore } from '@/store/usePlaybookStore';
 import { useTranslation } from '@/hooks/useTranslation';
 
 const PRIORITY_COLOR: Record<Priority, string> = {
@@ -66,7 +66,7 @@ function PlaybookCardItem({
 }
 
 export default function PlaybookScreen() {
-  const [actions, setActions] = useState<PlaybookAction[]>(MOCK_PLAYBOOK);
+  const { actions, addAction, updateActionStatus } = usePlaybookStore();
   const [activeTab, setActiveTab] = useState<ActionStatus>('todo');
   const [showAddModal, setShowAddModal] = useState(false);
   const [newTitle, setNewTitle] = useState('');
@@ -83,12 +83,10 @@ export default function PlaybookScreen() {
   ];
 
   const moveAction = (id: string, newStatus: ActionStatus) => {
-    setActions((prev) =>
-      prev.map((a) => (a.id === id ? { ...a, status: newStatus } : a))
-    );
+    updateActionStatus(id, newStatus);
   };
 
-  const addAction = () => {
+  const handleAddAction = () => {
     if (!newTitle.trim()) return;
     const action: PlaybookAction = {
       id: `p_${Date.now()}`,
@@ -101,7 +99,7 @@ export default function PlaybookScreen() {
       dueDate: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000).toISOString(),
       createdAt: new Date().toISOString(),
     };
-    setActions((prev) => [action, ...prev]);
+    addAction(action);
     setNewTitle('');
     setNewOwner('');
     setShowAddModal(false);
@@ -246,7 +244,7 @@ export default function PlaybookScreen() {
               ))}
             </View>
 
-            <TouchableOpacity style={styles.saveBtn} onPress={addAction}>
+            <TouchableOpacity style={styles.saveBtn} onPress={handleAddAction}>
               <Text style={styles.saveBtnText}>✅ Save Action</Text>
             </TouchableOpacity>
           </ScrollView>

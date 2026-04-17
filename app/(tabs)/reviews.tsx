@@ -13,13 +13,6 @@ import { useTranslation } from '@/hooks/useTranslation';
 
 type Filter = 'all' | 'negative' | 'positive' | 'sarcastic';
 
-const FILTER_TABS: { key: Filter; label: string; icon: string }[] = [
-  { key: 'all',      label: 'All',      icon: '📋' },
-  { key: 'negative', label: 'Critical', icon: '🔴' },
-  { key: 'positive', label: 'Positive', icon: '✅' },
-  { key: 'sarcastic',label: 'Sarcastic',icon: '🎭' },
-];
-
 const PASTE_PLATFORM_META: { key: PlatformType; icon: string; label: string; color: string }[] = [
   { key: 'amazon',   icon: '🛒', label: 'Amazon',   color: '#FF9900' },
   { key: 'flipkart', icon: '🏪', label: 'Flipkart', color: '#2874F0' },
@@ -93,7 +86,7 @@ export default function ReviewsScreen() {
             <Text style={styles.iconBtnText}>✏️</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.uploadBtn} onPress={() => setShowImport(true)}>
-            <Text style={styles.uploadBtnText}>📤 Import</Text>
+            <Text style={styles.uploadBtnText}>{t.reviews_import}</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -104,7 +97,7 @@ export default function ReviewsScreen() {
       {showPaste && (
         <View style={styles.pasteContainer}>
           {/* Platform picker */}
-          <Text style={styles.pastePlatformLabel}>SELECT PLATFORM</Text>
+          <Text style={styles.pastePlatformLabel}>{t.reviews_select_platform}</Text>
           <View style={styles.pastePlatformRow}>
             {PASTE_PLATFORM_META.map((p) => (
               <TouchableOpacity
@@ -128,7 +121,7 @@ export default function ReviewsScreen() {
             style={styles.pasteInput}
             value={pasteText}
             onChangeText={setPasteText}
-            placeholder="Paste a review here to analyze..."
+            placeholder={t.reviews_paste_ph}
             placeholderTextColor={Palette.grey600}
             multiline
             numberOfLines={3}
@@ -139,7 +132,7 @@ export default function ReviewsScreen() {
             disabled={isAnalyzing}
           >
             <Text style={styles.analyzeBtnText}>
-              {isAnalyzing ? '🔄 Analyzing...' : '🧠 Analyze'}
+              {isAnalyzing ? t.reviews_analyzing : t.reviews_analyze}
             </Text>
           </TouchableOpacity>
         </View>
@@ -147,23 +140,30 @@ export default function ReviewsScreen() {
 
       {/* Stats row */}
       <View style={styles.statsRow}>
-        <Text style={styles.reviewCount}>{filtered.length} reviews</Text>
+        <Text style={styles.reviewCount}>{filtered.length} {t.reviews_count}</Text>
         <Text style={styles.statsDetail}>
-          {reviews.filter((r) => r.sentiment === 'negative').length} negative ·{' '}
-          {reviews.filter((r) => r.isSarcastic).length} sarcastic
+          {reviews.filter((r) => r.sentiment === 'negative').length} {t.reviews_negative} ·{' '}
+          {reviews.filter((r) => r.isSarcastic).length} {t.reviews_sarcastic}
         </Text>
       </View>
 
       {/* Filter tabs */}
       <View style={styles.filterRow}>
-        {FILTER_TABS.map((tab) => (
+        {(
+          [
+            { key: 'all',       label: t.reviews_filter_all },
+            { key: 'negative',  label: t.reviews_filter_critical },
+            { key: 'positive',  label: t.reviews_filter_positive },
+            { key: 'sarcastic', label: t.reviews_filter_sarcastic },
+          ] as { key: Filter; label: string }[]
+        ).map((tab) => (
           <TouchableOpacity
             key={tab.key}
             style={[styles.filterTab, filter === tab.key && styles.filterTabActive]}
             onPress={() => setFilter(tab.key)}
           >
             <Text style={[styles.filterTabText, filter === tab.key && styles.filterTabTextActive]}>
-              {tab.icon} {tab.label}
+              {tab.label}
             </Text>
           </TouchableOpacity>
         ))}

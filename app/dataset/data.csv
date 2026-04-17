@@ -1,0 +1,215 @@
+product_id,product_name,category,review_text,rating,timestamp,reviewer_id,language_type
+P001,Samsung Galaxy S23,Electronics,Excellent phone! Camera quality is top notch 📸 Battery lasts whole day easily,5,2024-01-15,R001,english
+P001,Samsung Galaxy S23,Electronics,Phone acha hai but price thoda zyada hai. Camera bahut badhiya hai 👍,4,2024-01-16,R002,hindi_english_mixed
+P001,Samsung Galaxy S23,Electronics,ಬಹಳ ಚೆನ್ನಾಗಿದೆ! Camera super aagide. Battery backup thumba good,5,2024-01-17,R003,kannada_english_mixed
+P001,Samsung Galaxy S23,Electronics,worst phone ever!!!!! hangs every 5 minuts. dont buy this peace of junk,1,2024-01-18,R004,english_with_typos
+P001,Samsung Galaxy S23,Electronics,Heating issue is terrible. Phone becomes like a heater after 10 mins of use 🔥🔥,2,2024-02-20,R005,english
+P001,Samsung Galaxy S23,Electronics,Heating problem detected within week. Gets too hot during charging and gaming,2,2024-02-22,R006,english
+P001,Samsung Galaxy S23,Electronics,Phone heats up very quickly. Heating issue makes it uncomfortable to hold,2,2024-02-25,R007,english
+P001,Samsung Galaxy S23,Electronics,Overheating is serious concern. Device getting hot even with normal usage,2,2024-02-28,R008,english
+P001,Samsung Galaxy S23,Electronics,Heating problem is unbearable. Phone burns my hand during calls,1,2024-03-02,R009,english
+P001,Samsung Galaxy S23,Electronics,Great phone but heating issue is major drawback. Otherwise perfect,3,2024-03-05,R010,english
+P002,Nike Air Max Shoes,Fashion,Comfortable shoes 👟 but size runs small. Order one size up!,4,2024-01-10,R011,english
+P002,Nike Air Max Shoes,Fashion,Shoes bahut comfortable hai. Quality bhi acchi hai. Highly recommended!,5,2024-01-12,R012,hindi_english_mixed
+P002,Nike Air Max Shoes,Fashion,ಚಪ್ಪಲಿ ತುಂಬಾ comfortable aagide but price jasti aagide,4,2024-01-13,R013,kannada_english_mixed
+P002,Nike Air Max Shoes,Fashion,worst quality fake nike. sole started coming of after 2 days only 😡,1,2024-01-14,R014,english_with_typos
+P002,Nike Air Max Shoes,Fashion,Amazing shoes! Worth every penny. Quality is superb 💯,5,2024-01-15,R015,english
+P002,Nike Air Max Shoes,Fashion,Shoes ache hain lekin delivery time bahut lamba tha. 2 weeks laga,3,2024-01-16,R016,hindi_english_mixed
+P002,Nike Air Max Shoes,Fashion,Nice shoes. Comfortable for long walks. Good cushioning support,4,2024-01-17,R017,english
+P002,Nike Air Max Shoes,Fashion,Oh sure,these shoes will definitely last forever... NOT! Broke in a week 🙄,1,2024-01-18,R018,sarcastic
+P002,Nike Air Max Shoes,Fashion,Shoes super aagide! ತುಂಬಾ ಚೆನ್ನಾಗಿದೆ. Running ke liye perfect hai,5,2024-01-19,R019,multilingual_mixed
+P002,Nike Air Max Shoes,Fashion,good shoes good shoes good shoes good shoes good shoes good shoes,4,2024-01-20,R020,repetitive_bot_like
+P003,Boat Airdopes 141,Electronics,Sound quality is mind blowing 🎵 Bass is heavy and clear. Best in budget!,5,2024-01-05,R021,english
+P003,Boat Airdopes 141,Electronics,Badhiya hai! Sound quality ekdum mast hai. Paisa vasool product,5,2024-01-06,R022,hindi_english_mixed
+P003,Boat Airdopes 141,Electronics,ಸೂಪರ್ product! Bass thumba chennagide. Value for money definitely,5,2024-01-07,R023,kannada_english_mixed
+P003,Boat Airdopes 141,Electronics,terable sound quality. cant even here properly. waist of mony,1,2024-01-08,R024,english_with_typos
+P003,Boat Airdopes 141,Electronics,Connection drops frequently 📱 Very frustrating during calls and music,2,2024-01-09,R025,english
+P003,Boat Airdopes 141,Electronics,Battery backup bahut kam hai. Only 2-3 hours chalti hai,2,2024-01-10,R026,hindi_english_mixed
+P003,Boat Airdopes 141,Electronics,Great product! Sound quality amazing. Comfortable fit in ears 👂,5,2024-01-11,R027,english
+P003,Boat Airdopes 141,Electronics,Yeah,because who doesn't love earbuds that die in 2 hours? Revolutionary! 🤦,1,2024-01-12,R028,sarcastic
+P003,Boat Airdopes 141,Electronics,Sound thumba clear aagide. ಬ್ಯಾಟರಿ backup also good. Recommended,4,2024-01-13,R029,kannada_english_mixed
+P003,Boat Airdopes 141,Electronics,best product best product best product amazing amazing amazing,5,2024-01-14,R030,repetitive_bot_like
+P004,Prestige Induction Cooktop,Home_Appliances,Works perfectly! Heats up quickly and temperature control is excellent,5,2024-01-20,R031,english
+P004,Prestige Induction Cooktop,Home_Appliances,Bahut accha hai. Cooking easy ho gaya hai iske saath. Energy saving bhi hai,5,2024-01-21,R032,hindi_english_mixed
+P004,Prestige Induction Cooktop,Home_Appliances,ತುಂಬಾ useful aagide. Cooking fast aagutte. Easy to clean also,5,2024-01-22,R033,kannada_english_mixed
+P004,Prestige Induction Cooktop,Home_Appliances,not working proparly. makes lot of nois. very bad prodact,1,2024-01-23,R034,english_with_typos
+P004,Prestige Induction Cooktop,Home_Appliances,Good product but gets too hot from bottom. Need to be careful,3,2024-01-24,R035,english
+P004,Prestige Induction Cooktop,Home_Appliances,Achha hai lekin thoda expensive. But quality bahut badhiya hai 👍,4,2024-01-25,R036,hindi_english_mixed
+P004,Prestige Induction Cooktop,Home_Appliances,Excellent induction! Energy efficient and cooks food evenly,5,2024-01-26,R037,english
+P004,Prestige Induction Cooktop,Home_Appliances,Because spending 5000 rupees to boil water faster is totally necessary 😏,2,2024-01-27,R038,sarcastic
+P004,Prestige Induction Cooktop,Home_Appliances,Super product! ಬೇಗ heat aagutte. Cooking time save aagutte,5,2024-01-28,R039,kannada_english_mixed
+P004,Prestige Induction Cooktop,Home_Appliances,good good good excellent excellent excellent buy buy buy now now now,5,2024-01-29,R040,repetitive_bot_like
+P005,Philips Air Fryer,Home_Appliances,Amazing air fryer! 😍 Food comes out crispy and healthy. No oil needed,5,2024-02-01,R041,english
+P005,Philips Air Fryer,Home_Appliances,Bahut badhiya hai! Oil free cooking. Health ke liye best hai,5,2024-02-02,R042,hindi_english_mixed
+P005,Philips Air Fryer,Home_Appliances,Super aagide! ತುಂಬಾ healthy cooking madbahudu. Kids also loves it,5,2024-02-03,R043,kannada_english_mixed
+P005,Philips Air Fryer,Home_Appliances,totaly usless. food not cooked proparly. burnt from outsid raw from insid,1,2024-02-04,R044,english_with_typos
+P005,Philips Air Fryer,Home_Appliances,Good product but capacity is small. Can cook only for 2 people at a time,3,2024-02-05,R045,english
+P005,Philips Air Fryer,Home_Appliances,Air fryer accha hai. Cleaning bhi easy hai. Recommended for health conscious,4,2024-02-06,R046,hindi_english_mixed
+P005,Philips Air Fryer,Home_Appliances,Perfect for small family. Makes delicious crispy food without oil 🍟,5,2024-02-07,R047,english
+P005,Philips Air Fryer,Home_Appliances,Oh wonderful,another gadget to clutter my kitchen. Just what I needed! 🙄,2,2024-02-08,R048,sarcastic
+P005,Philips Air Fryer,Home_Appliances,Thumba chennaagide! Healthy cooking aagutte. ಎಣ್ಣೆ ಬೇಡ only air enough,5,2024-02-09,R049,kannada_english_mixed
+P005,Philips Air Fryer,Home_Appliances,best best best perfect perfect perfect amazing amazing amazing,5,2024-02-10,R050,repetitive_bot_like
+P006,HP Pavilion Laptop,Electronics,Excellent laptop for daily use! 💻 Fast performance and good battery life,5,2024-02-11,R051,english
+P006,HP Pavilion Laptop,Electronics,Laptop bahut achha hai. Speed bhi fast hai. Office work ke liye perfect,5,2024-02-12,R052,hindi_english_mixed
+P006,HP Pavilion Laptop,Electronics,ತುಂಬಾ ಚೆನ್ನಾಗಿದೆ! Fast working aagutte. Battery backup also superb,5,2024-02-13,R053,kannada_english_mixed
+P006,HP Pavilion Laptop,Electronics,very slow laptop. hangs alot. not worth the prise at all 😡,1,2024-02-14,R054,english_with_typos
+P006,HP Pavilion Laptop,Electronics,Good laptop but keyboard quality could be better. Otherwise satisfied,4,2024-02-15,R055,english
+P006,HP Pavilion Laptop,Electronics,Laptop theek hai. Screen quality acchi hai. Gaming ke liye not suitable,3,2024-02-16,R056,hindi_english_mixed
+P006,HP Pavilion Laptop,Electronics,Great performance! Multitasking is smooth. Highly recommended 👍,5,2024-02-17,R057,english
+P006,HP Pavilion Laptop,Electronics,Sure,heating up like an oven is a 'feature'. Thanks HP! 🔥,2,2024-02-18,R058,sarcastic
+P006,HP Pavilion Laptop,Electronics,Laptop super! Work fast aagutte. ಬ್ಯಾಟರಿ long lasting. Value for money,5,2024-02-19,R059,kannada_english_mixed
+P006,HP Pavilion Laptop,Electronics,excellent excellent excellent buy buy buy good good good laptop laptop,5,2024-02-20,R060,repetitive_bot_like
+P007,Puma Sports T-Shirt,Fashion,Comfortable fabric! 👕 Perfect for workouts. Doesn't stick to body during sweat,5,2024-02-21,R061,english
+P007,Puma Sports T-Shirt,Fashion,Bahut comfortable hai. Fabric quality bhi acchi hai. Gym ke liye best,5,2024-02-22,R062,hindi_english_mixed
+P007,Puma Sports T-Shirt,Fashion,Super comfortable aagide! ಬೆವರು bandaga bega dry aagutte. Good quality,5,2024-02-23,R063,kannada_english_mixed
+P007,Puma Sports T-Shirt,Fashion,fake puma. color faded after 1 wash only. very bad qualitty,1,2024-02-24,R064,english_with_typos
+P007,Puma Sports T-Shirt,Fashion,Good t-shirt but size is slightly smaller than expected. Go for larger size,4,2024-02-25,R065,english
+P007,Puma Sports T-Shirt,Fashion,T-shirt accha hai. Material comfortable hai. Price thoda high hai though,4,2024-02-26,R066,hindi_english_mixed
+P007,Puma Sports T-Shirt,Fashion,Excellent quality! Fabric breathes well. Perfect for running 🏃,5,2024-02-27,R067,english
+P007,Puma Sports T-Shirt,Fashion,Amazing how a t-shirt can shrink 2 sizes in one wash. Science! 🧪,1,2024-02-28,R068,sarcastic
+P007,Puma Sports T-Shirt,Fashion,Thumba comfortable! Running madoke super aagide. ಬಟ್ಟೆ quality good,5,2024-02-29,R069,kannada_english_mixed
+P007,Puma Sports T-Shirt,Fashion,good good good nice nice nice comfort comfort comfort fit fit fit,5,2024-03-01,R070,repetitive_bot_like
+P008,Milton Water Bottle,Home_Appliances,Keeps water cold for 24 hours! 💧 No leakage at all. Durable and sturdy,5,2024-03-02,R071,english
+P008,Milton Water Bottle,Home_Appliances,Bahut accha bottle hai. Paani thanda rehta hai. Travel ke liye perfect,5,2024-03-03,R072,hindi_english_mixed
+P008,Milton Water Bottle,Home_Appliances,ತುಂಬಾ ಚೆನ್ನಾಗಿದೆ! Water cold aagutte full day. Strong bottle,5,2024-03-04,R073,kannada_english_mixed
+P008,Milton Water Bottle,Home_Appliances,leakage problam. water came out from cap. very bed quality product,1,2024-03-05,R074,english_with_typos
+P008,Milton Water Bottle,Home_Appliances,Good bottle but cap is difficult to open. Need strong grip to open it,3,2024-03-06,R075,english
+P008,Milton Water Bottle,Home_Appliances,Bottle theek hai. Insulation achha hai. Cleaning thodi difficult hai inside,4,2024-03-07,R076,hindi_english_mixed
+P008,Milton Water Bottle,Home_Appliances,Excellent insulation! Water stays cold even in summer heat ☀️,5,2024-03-08,R077,english
+P008,Milton Water Bottle,Home_Appliances,Love paying premium price for a bottle that leaks. Best investment ever! 💦,1,2024-03-09,R078,sarcastic
+P008,Milton Water Bottle,Home_Appliances,Super bottle! ನೀರು ತಂಪಾಗಿ iratte. Travel time ge thumba useful,5,2024-03-10,R079,kannada_english_mixed
+P008,Milton Water Bottle,Home_Appliances,good good good nice nice nice best best best buy buy buy now now,5,2024-03-11,R080,repetitive_bot_like
+P009,OnePlus Bullets Wireless,Electronics,Great sound quality! 🎧 Battery life is impressive. Comfortable for long use,5,2024-03-12,R081,english
+P009,OnePlus Bullets Wireless,Electronics,Bahut badhiya hai! Sound quality top notch. Gaming ke liye bhi perfect,5,2024-03-13,R082,hindi_english_mixed
+P009,OnePlus Bullets Wireless,Electronics,Super product! Sound clear aagide. ಬ್ಯಾಟರಿ thumba time chalatte,5,2024-03-14,R083,kannada_english_mixed
+P009,OnePlus Bullets Wireless,Electronics,worst earphones. sound very low. connaction problam always,1,2024-03-15,R084,english_with_typos
+P009,OnePlus Bullets Wireless,Electronics,Good earphones but magnetic lock is weak. Comes apart easily in bag,3,2024-03-16,R085,english
+P009,OnePlus Bullets Wireless,Electronics,Earphones ache hain. Bass quality mast hai. Calling clarity bhi good,4,2024-03-17,R086,hindi_english_mixed
+P009,OnePlus Bullets Wireless,Electronics,Excellent product! Fast charging and long battery backup 🔋,5,2024-03-18,R087,english
+P009,OnePlus Bullets Wireless,Electronics,Oh yes,earphones that tangle themselves magically. Innovation! 🎉,2,2024-03-19,R088,sarcastic
+P009,OnePlus Bullets Wireless,Electronics,Thumba channaagide! Music keloke super. ಬ್ಯಾಟರಿ backup excellent,5,2024-03-20,R089,kannada_english_mixed
+P009,OnePlus Bullets Wireless,Electronics,best best best amazing amazing amazing super super super buy buy buy,5,2024-03-21,R090,repetitive_bot_like
+P010,Adidas Running Shoes,Fashion,Perfect running shoes! 👟 Lightweight and excellent grip. Very comfortable,5,2024-03-22,R091,english
+P010,Adidas Running Shoes,Fashion,Bahut comfortable shoes hai. Running ke liye best. Grip bhi achha hai,5,2024-03-23,R092,hindi_english_mixed
+P010,Adidas Running Shoes,Fashion,ತುಂಬಾ comfortable! Running madoke easy aagutte. Lightweight aagide,5,2024-03-24,R093,kannada_english_mixed
+P010,Adidas Running Shoes,Fashion,fake adidas. sole started brakng after 1 weak. dont buy this waist,1,2024-03-25,R094,english_with_typos
+P010,Adidas Running Shoes,Fashion,Good shoes but price is very high. Could be more affordable,3,2024-03-26,R095,english
+P010,Adidas Running Shoes,Fashion,Shoes bahut ache hain. Quality top class. Marathon ke liye use kiya,5,2024-03-27,R096,hindi_english_mixed
+P010,Adidas Running Shoes,Fashion,Excellent cushioning! Perfect for long distance running 🏃‍♂️,5,2024-03-28,R097,english
+P010,Adidas Running Shoes,Fashion,Sure,shoes that give blisters are totally 'performance enhanced'. Thanks! 🩹,1,2024-03-29,R098,sarcastic
+P010,Adidas Running Shoes,Fashion,Super shoes! Long distance run madoke perfect. ಕಾಲಿಗೆ pain baralla,5,2024-03-30,R099,kannada_english_mixed
+P010,Adidas Running Shoes,Fashion,excellent excellent excellent comfort comfort comfort best best best,5,2024-03-31,R100,repetitive_bot_like
+P011,LG Washing Machine,Home_Appliances,Excellent washing machine! Cleans clothes perfectly. Low noise operation 🔇,5,2024-04-01,R101,english
+P011,LG Washing Machine,Home_Appliances,Bahut badhiya machine hai. Kapde saaf ho jaate hain. Energy saving bhi hai,5,2024-04-02,R102,hindi_english_mixed
+P011,LG Washing Machine,Home_Appliances,Super machine! ಬಟ್ಟೆ clean aagutte. Water saving feature thumba good,5,2024-04-03,R103,kannada_english_mixed
+P011,LG Washing Machine,Home_Appliances,not working proparly. makes to much nois. cloths not clean proparly,1,2024-04-04,R104,english_with_typos
+P011,LG Washing Machine,Home_Appliances,Good machine but takes too long to complete wash cycle. Otherwise fine,3,2024-04-05,R105,english
+P011,LG Washing Machine,Home_Appliances,Machine achha hai. Automatic features bahut helpful. Drying bhi acchi hai,4,2024-04-06,R106,hindi_english_mixed
+P011,LG Washing Machine,Home_Appliances,Great product! Multiple wash modes available. Very efficient 💯,5,2024-04-07,R107,english
+P011,LG Washing Machine,Home_Appliances,Love a machine that takes 3 hours for one load. So efficient! ⏰,2,2024-04-08,R108,sarcastic
+P011,LG Washing Machine,Home_Appliances,Thumba chennaagide! ಬಟ್ಟೆ bekaaagade clean aagutte. Worth the price,5,2024-04-09,R109,kannada_english_mixed
+P011,LG Washing Machine,Home_Appliances,good good good best best best buy buy buy excellent excellent excellent,5,2024-04-10,R110,repetitive_bot_like
+P012,Sony PlayStation 5,Electronics,Amazing gaming experience! 🎮 Graphics are stunning. Loading times super fast,5,2024-04-11,R111,english
+P012,Sony PlayStation 5,Electronics,Bahut mast hai! Gaming experience ekdum next level. Graphics kamal ke hain,5,2024-04-12,R112,hindi_english_mixed
+P012,Sony PlayStation 5,Electronics,Super console! Graphics thumba clear aagide. Games fast load aagutte,5,2024-04-13,R113,kannada_english_mixed
+P012,Sony PlayStation 5,Electronics,overprice trash. not worth it at all. better buy xbox insted,1,2024-04-14,R114,english_with_typos
+P012,Sony PlayStation 5,Electronics,Good console but controller battery drains very quickly. Need frequent charging,3,2024-04-15,R115,english
+P012,Sony PlayStation 5,Electronics,Console bahut achha hai. 4K gaming mast hai. Exclusive games bhi badhiya,5,2024-04-16,R116,hindi_english_mixed
+P012,Sony PlayStation 5,Electronics,Incredible gaming console! Best investment for gamers 🕹️,5,2024-04-17,R117,english
+P012,Sony PlayStation 5,Electronics,Absolutely thrilled to pay double for a console that's never in stock! 💸,2,2024-04-18,R118,sarcastic
+P012,Sony PlayStation 5,Electronics,Gaming experience thumba chennagide! ಗ್ರಾಫಿಕ್ಸ್ super clear. Must buy,5,2024-04-19,R119,kannada_english_mixed
+P012,Sony PlayStation 5,Electronics,amazing amazing amazing best best best gaming gaming gaming perfect perfect,5,2024-04-20,R120,repetitive_bot_like
+P013,Levi's Jeans,Fashion,Perfect fit! 👖 Comfortable fabric. Good quality denim that lasts long,5,2024-04-21,R121,english
+P013,Levi's Jeans,Fashion,Bahut comfortable jeans hai. Fit perfect hai. Quality bhi top notch,5,2024-04-22,R122,hindi_english_mixed
+P013,Levi's Jeans,Fashion,Super jeans! Fit thumba chennagide. ಬಟ್ಟೆ quality excellent aagide,5,2024-04-23,R123,kannada_english_mixed
+P013,Levi's Jeans,Fashion,fake levis. stitching came lose after 2 wears. color also fading,1,2024-04-24,R124,english_with_typos
+P013,Levi's Jeans,Fashion,Good jeans but slightly expensive. Quality justifies the price though,4,2024-04-25,R125,english
+P013,Levi's Jeans,Fashion,Jeans acchi hai. Comfortable hai pure din. Office wear ke liye perfect,5,2024-04-26,R126,hindi_english_mixed
+P013,Levi's Jeans,Fashion,Excellent denim quality! Classic fit. Never goes out of style ✨,5,2024-04-27,R127,english
+P013,Levi's Jeans,Fashion,Love jeans that lose shape after one wash. Fashion statement! 🤷,1,2024-04-28,R128,sarcastic
+P013,Levi's Jeans,Fashion,Thumba comfortable! Daily wear madbahudu. ಬಟ್ಟೆ durable aagide,5,2024-04-29,R129,kannada_english_mixed
+P013,Levi's Jeans,Fashion,best best best fit fit fit comfort comfort comfort quality quality quality,5,2024-04-30,R130,repetitive_bot_like
+P014,Havells Ceiling Fan,Home_Appliances,Excellent fan! Strong air delivery. Silent operation even at high speed 🌀,5,2024-05-01,R131,english
+P014,Havells Ceiling Fan,Home_Appliances,Bahut achha fan hai. Hawa bhi tez aati hai. Bijli ki bachay bhi hoti hai,5,2024-05-02,R132,hindi_english_mixed
+P014,Havells Ceiling Fan,Home_Appliances,Super fan! ಗಾಳಿ thumba fast baratte. Silent operation. Good for bedroom,5,2024-05-03,R133,kannada_english_mixed
+P014,Havells Ceiling Fan,Home_Appliances,worst fan. makes lot of nois. air delvery very weak. dont buy,1,2024-05-04,R134,english_with_typos
+P014,Havells Ceiling Fan,Home_Appliances,Good fan but installation was difficult. Service person took too long,3,2024-05-05,R135,english
+P014,Havells Ceiling Fan,Home_Appliances,Fan bahut accha hai. Remote control feature bhi hai. Energy efficient,4,2024-05-06,R136,hindi_english_mixed
+P014,Havells Ceiling Fan,Home_Appliances,Perfect for summer! High speed mode is very powerful 💨,5,2024-05-07,R137,english
+P014,Havells Ceiling Fan,Home_Appliances,Oh great,a fan that wobbles. Because that's what I paid for! 🙃,2,2024-05-08,R138,sarcastic
+P014,Havells Ceiling Fan,Home_Appliances,Excellent fan! Power consumption kimi. ಗಾಳಿ delivery super aagide,5,2024-05-09,R139,kannada_english_mixed
+P014,Havells Ceiling Fan,Home_Appliances,good good good powerful powerful powerful silent silent silent best best,5,2024-05-10,R140,repetitive_bot_like
+P015,Apple AirPods Pro,Electronics,Best earbuds ever! 🎧 Noise cancellation is incredible. Sound quality superb,5,2024-05-11,R141,english
+P015,Apple AirPods Pro,Electronics,Bahut mast hai! Sound quality kamal ki hai. Apple ecosystem ke liye best,5,2024-05-12,R142,hindi_english_mixed
+P015,Apple AirPods Pro,Electronics,Super earbuds! Noise cancelling thumba effective. ಸೌಂಡ್ crystal clear,5,2024-05-13,R143,kannada_english_mixed
+P015,Apple AirPods Pro,Electronics,overprice. not worth the mony. sound quality same as cheap ones,1,2024-05-14,R144,english_with_typos
+P015,Apple AirPods Pro,Electronics,Good earbuds but case scratches very easily. Otherwise perfect,4,2024-05-15,R145,english
+P015,Apple AirPods Pro,Electronics,AirPods bahut ache hain. Battery life achhi hai. Calling clarity bhi mast,5,2024-05-16,R146,hindi_english_mixed
+P015,Apple AirPods Pro,Electronics,Excellent! Transparency mode is amazing. Perfect for daily commute 🚇,5,2024-05-17,R147,english
+P015,Apple AirPods Pro,Electronics,Sure,paying 20k for earbuds I'll lose in a month. Smart! 🧠,2,2024-05-18,R148,sarcastic
+P015,Apple AirPods Pro,Electronics,Thumba chennagide! Music experience next level. ಬ್ಯಾಟರಿ long lasting,5,2024-05-19,R149,kannada_english_mixed
+P015,Apple AirPods Pro,Electronics,amazing amazing amazing best best best sound sound sound quality quality,5,2024-05-20,R150,repetitive_bot_like
+P016,Reebok Gym Bag,Fashion,Spacious and durable! 💼 Multiple compartments. Perfect for gym essentials,5,2024-05-21,R151,english
+P016,Reebok Gym Bag,Fashion,Bahut achha bag hai. Space bhi kaafi hai. Gym ke liye best choice,5,2024-05-22,R152,hindi_english_mixed
+P016,Reebok Gym Bag,Fashion,Super bag! ತುಂಬಾ compartments ide. Gym equipment elavu adjust aagutte,5,2024-05-23,R153,kannada_english_mixed
+P016,Reebok Gym Bag,Fashion,zip broken after 1 weak. very bad quality. stitching also coming lose,1,2024-05-24,R154,english_with_typos
+P016,Reebok Gym Bag,Fashion,Good bag but straps are not very comfortable on shoulders. Rest is fine,3,2024-05-25,R155,english
+P016,Reebok Gym Bag,Fashion,Bag achha hai. Material water resistant hai. Design bhi stylish hai,4,2024-05-26,R156,hindi_english_mixed
+P016,Reebok Gym Bag,Fashion,Excellent quality! Enough space for clothes and shoes 👟,5,2024-05-27,R157,english
+P016,Reebok Gym Bag,Fashion,Love a bag that rips after one month. Quality craftsmanship! 🎖️,1,2024-05-28,R158,sarcastic
+P016,Reebok Gym Bag,Fashion,Bag thumba useful! All gym items fit aagutte. ಬಟ್ಟೆ quality strong,5,2024-05-29,R159,kannada_english_mixed
+P016,Reebok Gym Bag,Fashion,good good good spacious spacious spacious quality quality quality bag bag,5,2024-05-30,R160,repetitive_bot_like
+P017,Kent Water Purifier,Home_Appliances,Excellent water purifier! 💧 Water tastes pure. Easy to maintain,5,2024-05-31,R161,english
+P017,Kent Water Purifier,Home_Appliances,Bahut achha hai. Paani bilkul saaf aata hai. Health ke liye important,5,2024-06-01,R162,hindi_english_mixed
+P017,Kent Water Purifier,Home_Appliances,Super purifier! ನೀರು thumba clean aagutte. Installation easy aagittu,5,2024-06-02,R163,kannada_english_mixed
+P017,Kent Water Purifier,Home_Appliances,not working proparly. water test show still impuritys. waist of mony,1,2024-06-03,R164,english_with_typos
+P017,Kent Water Purifier,Home_Appliances,Good purifier but service is very expensive. Filter replacement costs too much,3,2024-06-04,R165,english
+P017,Kent Water Purifier,Home_Appliances,Purifier accha hai. RO+UV dono hain. Mineral water milta hai ghar par,4,2024-06-05,R166,hindi_english_mixed
+P017,Kent Water Purifier,Home_Appliances,Perfect for home! Multiple stage purification. Very reliable 🏡,5,2024-06-06,R167,english
+P017,Kent Water Purifier,Home_Appliances,Amazing how a purifier can waste more water than it cleans. Innovation! 💦,2,2024-06-07,R168,sarcastic
+P017,Kent Water Purifier,Home_Appliances,Thumba chennagide! ನೀರು safe aagutte. Family health ge good investment,5,2024-06-08,R169,kannada_english_mixed
+P017,Kent Water Purifier,Home_Appliances,best best best pure pure pure water water water clean clean clean,5,2024-06-09,R170,repetitive_bot_like
+P018,Canon DSLR Camera,Electronics,Stunning image quality! 📷 Perfect for professional photography. Easy to use,5,2024-06-10,R171,english
+P018,Canon DSLR Camera,Electronics,Bahut badhiya camera hai. Photos crystal clear aate hain. Video bhi mast,5,2024-06-11,R172,hindi_english_mixed
+P018,Canon DSLR Camera,Electronics,Super camera! Photos thumba clear baratte. ವೀಡಿಯೋ quality excellent,5,2024-06-12,R173,kannada_english_mixed
+P018,Canon DSLR Camera,Electronics,not worth the prise. heavy to carry. picture quality not that good,1,2024-06-13,R174,english_with_typos
+P018,Canon DSLR Camera,Electronics,Good camera but battery life is poor. Need extra batteries for long shoots,3,2024-06-14,R175,english
+P018,Canon DSLR Camera,Electronics,Camera bahut achha hai. Low light performance bhi good. Recommended for beginners,4,2024-06-15,R176,hindi_english_mixed
+P018,Canon DSLR Camera,Electronics,Excellent DSLR! Autofocus is fast and accurate. Great investment 💯,5,2024-06-16,R177,english
+P018,Canon DSLR Camera,Electronics,Yes,because lugging 2kg equipment everywhere is so convenient! 🏋️,2,2024-06-17,R178,sarcastic
+P018,Canon DSLR Camera,Electronics,Professional quality! ಫೋಟೋ quality next level. Wedding shoot ge perfect,5,2024-06-18,R179,kannada_english_mixed
+P018,Canon DSLR Camera,Electronics,amazing amazing amazing picture picture picture quality quality quality best,5,2024-06-19,R180,repetitive_bot_like
+P019,Woodland Leather Wallet,Fashion,Premium quality wallet! 👛 Genuine leather. Multiple card slots. Very durable,5,2024-06-20,R181,english
+P019,Woodland Leather Wallet,Fashion,Bahut achha wallet hai. Leather quality top class. Pocket mein fit bhi ho jata,5,2024-06-21,R182,hindi_english_mixed
+P019,Woodland Leather Wallet,Fashion,Super wallet! Leather quality thumba good. ಕಾರ್ಡ್ slots bere ide,5,2024-06-22,R183,kannada_english_mixed
+P019,Woodland Leather Wallet,Fashion,fake lether. started peling after few days. stitching also very bad,1,2024-06-23,R184,english_with_typos
+P019,Woodland Leather Wallet,Fashion,Good wallet but slightly bulky. Doesn't fit well in tight pockets,3,2024-06-24,R185,english
+P019,Woodland Leather Wallet,Fashion,Wallet achha hai. RFID protection bhi hai. Design classic aur elegant,4,2024-06-25,R186,hindi_english_mixed
+P019,Woodland Leather Wallet,Fashion,Excellent craftsmanship! Leather smell and feel is authentic ✨,5,2024-06-26,R187,english
+P019,Woodland Leather Wallet,Fashion,Love paying premium for 'leather' that peels like cheap plastic! 🎭,1,2024-06-27,R188,sarcastic
+P019,Woodland Leather Wallet,Fashion,Thumba durable! Long time chalatte. ಲೆದರ್ quality original aagide,5,2024-06-28,R189,kannada_english_mixed
+P019,Woodland Leather Wallet,Fashion,good good good quality quality quality leather leather leather best best,5,2024-06-29,R190,repetitive_bot_like
+P020,Bajaj Mixer Grinder,Home_Appliances,Powerful motor! 🔌 Grinds everything smoothly. Very sturdy and durable,5,2024-06-30,R191,english
+P020,Bajaj Mixer Grinder,Home_Appliances,Bahut powerful hai. Sab kuch achhe se grind ho jata. 3 jars bhi hain,5,2024-07-01,R192,hindi_english_mixed
+P020,Bajaj Mixer Grinder,Home_Appliances,Super mixer! ಎಲ್ಲಾ grind aagutte easily. Motor thumba powerful,5,2024-07-02,R193,kannada_english_mixed
+P020,Bajaj Mixer Grinder,Home_Appliances,motor burnt after 2 months. blades also not sharp. very bad prodact,1,2024-07-03,R194,english_with_typos
+P020,Bajaj Mixer Grinder,Home_Appliances,Good mixer but makes lot of noise during operation. Rest is satisfactory,3,2024-07-04,R195,english
+P020,Bajaj Mixer Grinder,Home_Appliances,Mixer achha hai. Wet aur dry dono grinding achhi hoti hai. Value for money,4,2024-07-05,R196,hindi_english_mixed
+P020,Bajaj Mixer Grinder,Home_Appliances,Excellent product! Perfect for Indian kitchen. Multiple jars included 🍛,5,2024-07-06,R197,english
+P020,Bajaj Mixer Grinder,Home_Appliances,Absolutely love a mixer that sounds like a jet engine. So peaceful! ✈️,2,2024-07-07,R198,sarcastic
+P020,Bajaj Mixer Grinder,Home_Appliances,Mixer thumba powerful! Daily use ge perfect. ಎಲ್ಲಾ jar useful aagide,5,2024-07-08,R199,kannada_english_mixed
+P020,Bajaj Mixer Grinder,Home_Appliances,best best best powerful powerful powerful motor motor motor grinder grinder,5,2024-07-09,R200,repetitive_bot_like
+P001,Samsung Galaxy S23,Electronics,Phone heating issue getting worse. Can't even hold during video calls now,1,2024-03-08,R201,english
+P001,Samsung Galaxy S23,Electronics,Overheating problem is severe. Apps crash due to excessive heating,2,2024-03-10,R202,english
+P001,Samsung Galaxy S23,Electronics,Heating issue making phone unusable. Battery drains fast due to heat,2,2024-03-12,R203,english
+P001,Samsung Galaxy S23,Electronics,Phone becomes extremely hot. Heating problem needs immediate fix,1,2024-03-15,R204,english
+P001,Samsung Galaxy S23,Electronics,Terrible heating issue. Phone getting hot even during basic tasks,2,2024-03-18,R205,english
+P001,Samsung Galaxy S23,Electronics,Heating problem is dangerous. Phone too hot to touch sometimes,1,2024-03-20,R206,english
+P001,Samsung Galaxy S23,Electronics,Overheating ruins the experience. Otherwise good phone but heat is unbearable,2,2024-03-22,R207,english
+P001,Samsung Galaxy S23,Electronics,Phone heats up alarmingly fast. Major heating issue needs Samsung attention,2,2024-03-25,R208,english
+P001,Samsung Galaxy S23,Electronics,Heating issue makes camera app crash. Phone burning hot after 5 mins use,1,2024-03-28,R209,english
+P001,Samsung Galaxy S23,Electronics,Severe overheating problem. Can't charge phone while using due to heat,2,2024-03-30,R210,english
+P021,Noise Smart Watch,Electronics,Great smartwatch! ⌚ Tracks fitness accurately. Battery lasts 7 days easily,5,2024-07-10,R211,english
+P021,Noise Smart Watch,Electronics,Bahut achha watch hai. Health monitoring features bhi hain. Value for money,5,2024-07-11,R212,hindi_english_mixed
+P021,Noise Smart Watch,Electronics,Super watch! ಫಿಟ್ನೆಸ್ tracking accurate aagide. Battery long lasting,5,2024-07-12,R213,kannada_english_mixed
+P021,Noise Smart Watch,Electronics,touch not working proparly. battery draning very fast. not satisfied,1,2024-07-13,R214,english_with_typos

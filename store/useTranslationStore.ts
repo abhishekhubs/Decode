@@ -2,6 +2,8 @@
 import { BASE_STRINGS, TStrings } from '@/constants/i18n';
 import { translateStoreData } from '@/utils/translator';
 import { create } from 'zustand';
+import { persist, createJSONStorage } from 'zustand/middleware';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // Key is read lazily inside the action so hot-reload / env changes are picked up
 const getGroqKey = () => process.env.EXPO_PUBLIC_GROQ_API_KEY ?? '';
@@ -14,9 +16,6 @@ const LANG_NAMES: Record<string, string> = {
 const KEYS = Object.keys(BASE_STRINGS) as Array<keyof TStrings>;
 const VALUES = Object.values(BASE_STRINGS) as string[];
 
-// ── Per-session cache — avoids re-calling Groq for already-translated languages ──
-const translationCache = new Map<string, TStrings>();
-
 // ── Single in-flight AbortController — cancelled when a new language is picked ──
 let currentController: AbortController | null = null;
 
@@ -25,6 +24,7 @@ interface TranslationStore {
   strings: TStrings;
   isTranslating: boolean;
   error: string | null;
+  cache: Record<string, TStrings>;
   setLanguage: (lang: string) => Promise<void>;
 }
 
@@ -95,10 +95,15 @@ async function fetchTranslation(
   // ── Auto-retry on rate-limit (429) ────────────────────────────
   if (res.status === 429) {
     const retryAfter = parseInt(res.headers.get('retry-after') ?? '5', 10);
+    if (retryAfter > 10) {
+      console.warn(`[Translation] Rate-limited by Groq (${retryAfter}s). Falling back...`);
+      throw new Error('Rate-limited');
+    }
     console.warn(`[Translation] Rate-limited. Retrying after ${retryAfter}s…`);
     await new Promise((r) => setTimeout(r, retryAfter * 1000));
     if (signal.aborted) throw new DOMException('Aborted', 'AbortError');
     res = await doFetch();
+    if (res.status === 429) throw new Error('Rate-limited');
   }
 
   const data = await res.json();
@@ -113,95 +118,118 @@ async function fetchTranslation(
   return raw;
 }
 
-export const useTranslationStore = create<TranslationStore>((set, get) => ({
-  language: 'en',
-  strings: BASE_STRINGS as TStrings,
-  isTranslating: false,
-  error: null,
+export const useTranslationStore = create<TranslationStore>()(
+  persist(
+    (set, get) => ({
+      language: 'en',
+      strings: BASE_STRINGS as TStrings,
+      isTranslating: false,
+      error: null,
+      cache: {},
 
-  setLanguage: async (lang: string) => {
-    // ── Already on this language ──────────────────────────────────
-    if (lang === get().language && !get().isTranslating) return;
+      setLanguage: async (lang: string) => {
+        // ── Already on this language ──────────────────────────────────
+        if (lang === get().language && !get().isTranslating) return;
 
-    // ── Cancel any in-flight request ──────────────────────────────
-    if (currentController) {
-      currentController.abort();
-      currentController = null;
+        // ── Cancel any in-flight request ──────────────────────────────
+        if (currentController) {
+          currentController.abort();
+          currentController = null;
+        }
+
+        // ── Switch back to English — always instant ───────────────────
+        if (lang === 'en') {
+          set({
+            language: 'en', strings: BASE_STRINGS as TStrings,
+            isTranslating: false, error: null
+          });
+          translateStoreData('en');
+          return;
+        }
+
+        // ── Serve from persistent cache if available ──────────────────
+        if (get().cache[lang]) {
+          console.log(`[Translation] ✅ ${lang} served from persistent cache`);
+          set({
+            language: lang, strings: get().cache[lang],
+            isTranslating: false, error: null
+          });
+          translateStoreData(lang);
+          return;
+        }
+
+        // ── Start fresh API call ──────────────────────────────────────
+        const controller = new AbortController();
+        currentController = controller;
+        const langName = LANG_NAMES[lang] ?? lang;
+
+        set({ isTranslating: true, language: lang, error: null });
+
+        try {
+          const numberedList = VALUES.map((v, i) => `${i + 1}. ${v}`).join('\n');
+          const prompt =
+            `Translate the following numbered UI strings from English to ${langName}.\n` +
+            `CRITICAL RULES — follow exactly:\n` +
+            `- NUMBER each line with Western Arabic digits only: 1. 2. 3. (NOT ೧ ೨ ೩ or १ २ ३)\n` +
+            `- Keep emoji exactly as-is (e.g. 💡 🔴 📱)\n` +
+            `- Keep {val} placeholder exactly as-is\n` +
+            `- Keep literal \\n exactly as-is\n` +
+            `- Output ONLY the numbered translations, nothing else\n\n` +
+            numberedList;
+
+          let translated: string[];
+          try {
+            const raw = await fetchTranslation(prompt, controller.signal);
+            if (controller.signal.aborted) return;
+            translated = parseResponse(raw, KEYS.length);
+          } catch (err: any) {
+            if (err?.name === 'AbortError') return;
+            console.warn(`[Translation] Groq failed (${err.message}), falling back to Google...`);
+            const { bulkTranslate } = require('@/utils/translator');
+            translated = await bulkTranslate(VALUES, lang);
+          }
+
+          if (controller.signal.aborted) return;
+
+          const merged: TStrings = { ...(BASE_STRINGS as TStrings) };
+          KEYS.forEach((key, i) => { if (translated[i]) merged[key] = translated[i]; });
+
+          const covered = KEYS.filter((k, i) => merged[k] !== VALUES[i]).length;
+          console.log(`[Translation] ✅ ${langName}: ${covered}/${KEYS.length} strings translated`);
+
+          // Save to persistent cache so repeat switches are instant across reloads
+          currentController = null;
+          set((state) => ({ 
+            strings: merged, 
+            isTranslating: false, 
+            error: null,
+            cache: { ...state.cache, [lang]: merged }
+          }));
+
+          // Fire off data translation in background
+          translateStoreData(lang);
+
+        } catch (e: any) {
+          if (e?.name === 'AbortError') {
+            // Request was cancelled by a newer selection — do nothing
+            console.log('[Translation] Request cancelled (new language selected)');
+            return;
+          }
+          console.warn('[Translation] Failed:', e?.message);
+          currentController = null;
+          set({
+            strings: BASE_STRINGS as TStrings,
+            isTranslating: false,
+            error: e?.message ?? 'Translation failed',
+            language: 'en',
+          });
+        }
+      },
+    }),
+    {
+      name: 'translation-storage',
+      storage: createJSONStorage(() => AsyncStorage),
+      partialize: (state) => ({ cache: state.cache }), // Only persist the cache
     }
-
-    // ── Switch back to English — always instant ───────────────────
-    if (lang === 'en') {
-      set({
-        language: 'en', strings: BASE_STRINGS as TStrings,
-        isTranslating: false, error: null
-      });
-      return;
-    }
-
-    // ── Serve from cache if available ─────────────────────────────
-    if (translationCache.has(lang)) {
-      console.log(`[Translation] ✅ ${lang} served from cache`);
-      set({
-        language: lang, strings: translationCache.get(lang)!,
-        isTranslating: false, error: null
-      });
-      translateStoreData(lang);
-      return;
-    }
-
-    // ── Start fresh API call ──────────────────────────────────────
-    const controller = new AbortController();
-    currentController = controller;
-    const langName = LANG_NAMES[lang] ?? lang;
-
-    set({ isTranslating: true, language: lang, error: null });
-
-    try {
-      const numberedList = VALUES.map((v, i) => `${i + 1}. ${v}`).join('\n');
-      const prompt =
-        `Translate the following numbered UI strings from English to ${langName}.\n` +
-        `CRITICAL RULES — follow exactly:\n` +
-        `- NUMBER each line with Western Arabic digits only: 1. 2. 3. (NOT ೧ ೨ ೩ or १ २ ३)\n` +
-        `- Keep emoji exactly as-is (e.g. 💡 🔴 📱)\n` +
-        `- Keep {val} placeholder exactly as-is\n` +
-        `- Keep literal \\n exactly as-is\n` +
-        `- Output ONLY the numbered translations, nothing else\n\n` +
-        numberedList;
-
-      const raw = await fetchTranslation(prompt, controller.signal);
-
-      // If aborted while waiting, bail silently — a newer call is in charge
-      if (controller.signal.aborted) return;
-
-      const translated = parseResponse(raw, KEYS.length);
-      const merged: TStrings = { ...(BASE_STRINGS as TStrings) };
-      KEYS.forEach((key, i) => { if (translated[i]) merged[key] = translated[i]; });
-
-      const covered = KEYS.filter((k, i) => merged[k] !== VALUES[i]).length;
-      console.log(`[Translation] ✅ ${langName}: ${covered}/${KEYS.length} strings translated`);
-
-      // Save to cache so repeat switches are instant
-      translationCache.set(lang, merged);
-      currentController = null;
-      set({ strings: merged, isTranslating: false, error: null });
-
-      // Fire off data translation in background
-      translateStoreData(lang);
-
-    } catch (e: any) {
-      if (e?.name === 'AbortError') {
-        // Request was cancelled by a newer selection — do nothing
-        console.log('[Translation] Request cancelled (new language selected)');
-        return;
-      }
-      console.warn('[Translation] Failed:', e?.message);
-      currentController = null;
-      set({
-        strings: BASE_STRINGS as TStrings,
-        isTranslating: false,
-        error: e?.message ?? 'Translation failed',
-        language: 'en',
-      });
-    }
-  },
-}));
+  )
+);

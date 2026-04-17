@@ -9,6 +9,7 @@ export interface UserProfile {
   email: string;
   phone: string;
   address: string;
+  avatar: string | null;
 }
 
 interface ProfileStore {
@@ -26,6 +27,7 @@ export const useProfileStore = create<ProfileStore>()(
         email: '',
         phone: '+91 7892208908',
         address: '',
+        avatar: null,
       },
       updateProfile: (updates) =>
         set((state) => ({ profile: { ...state.profile, ...updates } })),

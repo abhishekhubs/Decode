@@ -50,7 +50,7 @@ function normalizeInput(text: string) {
   t = t.replace(/\b4re\b/gi, "are").replace(/\bu\b/gi, "you").replace(/\br\b/gi, "are")
     .replace(/\bw\b/gi, "with").replace(/\bn\b/gi, "and").replace(/\bda\b/gi, "the")
     .replace(/\bgr8\b/gi, "great").replace(/\blol\b/gi, "").replace(/\bomg\b/gi, "");
-  const fixes = [
+  const fixes: [RegExp, string][] = [
     [/\bbatery|batry|battrey\b/gi, "battery"],
     [/\bcamra|camara|camrera\b/gi, "camera"],
     [/\bdelievry|delvery|dilievery\b/gi, "delivery"],

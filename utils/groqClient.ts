@@ -97,7 +97,7 @@ export interface GroqReviewAnalysis {
 const GROQ_API_KEY =
   process.env.EXPO_PUBLIC_GROQ_API_KEY ?? '';
 const GROQ_MODEL = 'llama-3.1-8b-instant';
-const BATCH_SIZE = 8; // reviews per API call
+const BATCH_SIZE = 25; // Increased for faster processing
 
 /**
  * Analyse an array of raw review strings using Groq LLM.
@@ -107,20 +107,18 @@ const BATCH_SIZE = 8; // reviews per API call
 export async function analyzeReviewsWithGroq(
   texts: string[],
 ): Promise<GroqReviewAnalysis[]> {
-  const results: GroqReviewAnalysis[] = [];
+  const promises: Promise<GroqReviewAnalysis[]>[] = [];
 
-  // Process in batches to stay within token limits
+  // Process batches concurrently to drastically reduce import time
   for (let i = 0; i < texts.length; i += BATCH_SIZE) {
     const batch = texts.slice(i, i + BATCH_SIZE);
-    try {
-      const batchResults = await analyseBatch(batch);
-      results.push(...batchResults);
-    } catch {
-      // Fallback: use local heuristics for this batch
-      batch.forEach(t => results.push(localFallback(t)));
-    }
+    promises.push(
+      analyseBatch(batch).catch(() => batch.map(localFallback))
+    );
   }
-  return results;
+
+  const nestedResults = await Promise.all(promises);
+  return nestedResults.flat();
 }
 
 async function analyseBatch(texts: string[]): Promise<GroqReviewAnalysis[]> {

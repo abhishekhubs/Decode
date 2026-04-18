@@ -343,7 +343,41 @@ export default function SettingsScreen() {
 
         {/* ── Footer ── */}
         <View style={styles.footer}>
-          <Text style={styles.footerText}> {t.settings_team}</Text>
+          <Text style={styles.footerText}>{t.settings_team}</Text>
+          
+          <View style={styles.supportContainer}>
+            <Text style={styles.supportTitle}>Contact Support</Text>
+            
+            <View style={styles.supportCard}>
+              <View style={styles.supportRow}>
+                <Feather name="user" size={16} color={Palette.grey400} />
+                <View style={styles.supportInfo}>
+                  <Text style={styles.supportName}>Abhishek Shrivastav</Text>
+                  <Text style={styles.supportPhone}>+91 9853688251</Text>
+                </View>
+              </View>
+              
+              <View style={styles.supportDivider} />
+              
+              <View style={styles.supportRow}>
+                <Feather name="user" size={16} color={Palette.grey400} />
+                <View style={styles.supportInfo}>
+                  <Text style={styles.supportName}>Muhmmad Nazeem</Text>
+                  <Text style={styles.supportPhone}>+91 7895563201</Text>
+                </View>
+              </View>
+              
+              <View style={styles.supportDivider} />
+              
+              <View style={styles.supportRow}>
+                <Feather name="user" size={16} color={Palette.grey400} />
+                <View style={styles.supportInfo}>
+                  <Text style={styles.supportName}>Chithra</Text>
+                  <Text style={styles.supportPhone}>+91 9853688252</Text>
+                </View>
+              </View>
+            </View>
+          </View>
         </View>
 
       </ScrollView>
@@ -658,15 +692,62 @@ const styles = StyleSheet.create({
 
   // ── Footer ──
   footer: {
-    alignSelf: 'center',
+    width: '100%',
+    alignItems: 'center',
     marginTop: 32,
     marginBottom: 20,
   },
   footerText: {
-    color: Palette.violetLight,
-    fontSize: 16,
-    fontWeight: '900',
-    letterSpacing: 1,
+    color: Palette.grey500,
+    fontSize: 14,
+    fontWeight: '500',
+    marginBottom: 24,
+  },
+  supportContainer: {
+    width: '100%',
+    paddingHorizontal: Spacing.xl,
+    paddingBottom: Spacing.xxl,
+  },
+  supportTitle: {
+    fontSize: 14,
+    fontWeight: '700',
+    color: Palette.grey400,
     textTransform: 'uppercase',
+    letterSpacing: 1,
+    marginBottom: 12,
+    alignSelf: 'center',
+  },
+  supportCard: {
+    backgroundColor: Palette.navyCard,
+    borderRadius: Radii.lg,
+    borderWidth: 1,
+    borderColor: Palette.navyBorder,
+    padding: Spacing.md,
+  },
+  supportRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingVertical: 10,
+    paddingHorizontal: 8,
+  },
+  supportInfo: {
+    marginLeft: 12,
+    flex: 1,
+  },
+  supportName: {
+    color: '#fff',
+    fontSize: 15,
+    fontWeight: '600',
+  },
+  supportPhone: {
+    color: Palette.grey400,
+    fontSize: 13,
+    marginTop: 2,
+  },
+  supportDivider: {
+    height: 1,
+    backgroundColor: Palette.navyBorder,
+    marginVertical: 4,
+    marginHorizontal: 8,
   },
 });

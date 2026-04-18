@@ -1,9 +1,9 @@
+import { Palette } from '@/constants/theme';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { Provider as PaperProvider, MD3DarkTheme } from 'react-native-paper';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import { Palette } from '@/constants/theme';
+import { MD3DarkTheme, Provider as PaperProvider } from 'react-native-paper';
 
 const queryClient = new QueryClient();
 
@@ -12,15 +12,15 @@ const voiceMapTheme = {
   ...MD3DarkTheme,
   colors: {
     ...MD3DarkTheme.colors,
-    primary:          Palette.violet,
-    secondary:        Palette.violetLight,
-    background:       Palette.deepNavy,
-    surface:          Palette.navySurface,
-    surfaceVariant:   Palette.navyCard,
-    error:            Palette.danger,
-    onPrimary:        '#FFFFFF',
-    onBackground:     '#ECEDEE',
-    onSurface:        '#ECEDEE',
+    primary: Palette.violet,
+    secondary: Palette.violetLight,
+    background: Palette.deepNavy,
+    surface: Palette.navySurface,
+    surfaceVariant: Palette.navyCard,
+    error: Palette.danger,
+    onPrimary: '#FFFFFF',
+    onBackground: '#ECEDEE',
+    onSurface: '#ECEDEE',
     elevation: {
       ...MD3DarkTheme.colors.elevation,
       level0: Palette.deepNavy,

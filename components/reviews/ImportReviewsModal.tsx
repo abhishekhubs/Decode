@@ -11,6 +11,7 @@ import { useReviewStore } from '@/store/useReviewStore';
 import { Palette, Radii, Spacing } from '@/constants/theme';
 import { Review, Platform as PlatformType } from '@/types';
 import { analyzeReviewsWithGroq } from '@/utils/groqClient';
+import { supabase } from '@/utils/supabaseClient';
 
 type ImportMode = 'csv' | 'json' | 'text';
 
@@ -261,11 +262,38 @@ export function ImportReviewsModal({ visible, onClose }: Props) {
   }, [textInput, runGroqAnalysis]);
 
   // ── Confirm import ────────────────────────────────────────────────────────
-  const confirmImport = useCallback(() => {
+  const confirmImport = useCallback(async () => {
+    // 1. Save to local Zustand store (in-app)
     addReviews(preview);
+
+    // 2. Save to Supabase so it shows in the dashboard
+    try {
+      const rows = preview.map((r) => ({
+        review_text: r.text,
+        rating: r.rating,
+        sentiment: r.sentiment,
+        product_name: r.brandName ?? 'Unknown',
+        category: r.productCategory ?? 'General',
+        language_type: r.language ?? 'english',
+        is_sarcastic: r.isSarcastic,
+        danger_score: r.dangerScore,
+      }));
+      const { error } = await supabase.from('hack').insert(rows);
+      if (error) {
+        console.warn('[Supabase] Insert error:', error.message);
+        RNAlert.alert(
+          '⚠️ Partial Import',
+          `Added to app but Supabase sync failed: ${error.message}`,
+        );
+        return;
+      }
+    } catch (e: any) {
+      console.warn('[Supabase] Unexpected error:', e);
+    }
+
     RNAlert.alert(
       '✅ Import Complete',
-      `${preview.length} review${preview.length !== 1 ? 's' : ''} analysed by Groq and added!`,
+      `${preview.length} review${preview.length !== 1 ? 's' : ''} saved to app and Supabase!`,
     );
     handleClose();
   }, [preview, addReviews, handleClose]);
